@@ -16,12 +16,12 @@ private:
 	B_Node* left;
 	B_Node* right;
 
-	BoundingBox getBoundingbox(int low, int high,std::vector<glm::vec3>* points[]);
-	BoundingBox getDefultBoundingbox(glm::vec3 point);
+	BoundingBox getBoundingbox(int low, int high,std::vector<glm::vec3>* points[]);//natai
+	BoundingBox getDefultBoundingbox(glm::vec3 point);//natai
 public:
-	B_Node(int low, int high, std::vector<glm::vec3>* points[]);
-	B_Node(const B_Node &other);
-	bool isColiding(glm::mat4 myMat, B_Node &other,glm::mat4 otherMat);
+	B_Node(int low, int high, std::vector<glm::vec3>* points[]);//gal
+	B_Node(const B_Node &other);//natai
+	BoundingBox isColiding(glm::mat4 myMat, B_Node &other,glm::mat4 otherMat);//gal
 
 	~B_Node(void);
 };
@@ -44,6 +44,8 @@ class MeshConstructor
 	
 public:
 	//TO DO: add collision detection function which get other MeshConstructor and Mat4 of related transformasions. The function may return a pointer to the relevant Bounding Box when collide
+	//gal
+	
 	enum SimpleShapes
 	{
 		Axis,
@@ -53,10 +55,10 @@ public:
 		BezierLine,
 		BezierSurface,
 	};
-	MeshConstructor(const int type);
-	MeshConstructor(Bezier1D *curve,bool isSurface,unsigned int resT,unsigned int resS);
-	MeshConstructor(const MeshConstructor &mesh);
-	MeshConstructor(const std::string& fileName);
+	MeshConstructor(const int type);//natai
+	MeshConstructor(Bezier1D *curve,bool isSurface,unsigned int resT,unsigned int resS);//natai
+	MeshConstructor(const MeshConstructor &mesh);//gal
+	MeshConstructor(const std::string& fileName);//gal
 
 	void Bind() {vao.Bind();}
 	void Unbind() {vao.Unbind();}
