@@ -26,6 +26,7 @@ public:
 	MovableGLM();
 	virtual ~MovableGLM(){}
 	glm::mat4 makeTransScale(glm::mat4 &prevTransformations) const;
+	glm::mat4 MovableGLM::makeScale() const;
 	glm::mat4 makeTransScale() const;
 	glm::mat4 makeTrans(glm::mat4 &prevTransformations) const;
 	glm::mat4 makeTrans() const;

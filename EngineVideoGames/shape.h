@@ -10,13 +10,17 @@ class Shape : public MovableGLM
 {
 private:
 
-	MeshConstructor *mesh;
+
 	Texture *tex;
 	bool isCopy;
 	unsigned int mode;
 	bool toRender;
 
 public:
+
+	std::pair<BoundingBox*, BoundingBox*> checkColsion(Shape* other);
+
+	MeshConstructor *mesh;
 
 	Shape(const Shape& shape,unsigned int mode);
 

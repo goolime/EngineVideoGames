@@ -1,5 +1,6 @@
 #define GLEW_STATIC
 #include <GL\glew.h>
+#include <utility> 
 #include "shape.h"
 #include "Log.hpp"
 
@@ -70,3 +71,6 @@ Shape::~Shape(void)
 	}
 }
 
+std::pair<BoundingBox*, BoundingBox*>  Shape::checkColsion(Shape* other) {
+	 return mesh->checkCollsion(other->mesh, other->makeTrans(), makeTrans(),makeTransScale(),other->makeTransScale());
+}

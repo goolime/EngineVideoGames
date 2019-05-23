@@ -28,6 +28,11 @@ MovableGLM::MovableGLM()
 	scaleFactor = vec3(1);
 }
 
+mat4 MovableGLM::makeScale() const {
+
+	return  scale(mat4(1), scaleFactor);
+}
+
 mat4 MovableGLM::makeTransScale() const
 {
 	return makeTrans() * scale(mat4(1), scaleFactor);

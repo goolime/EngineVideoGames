@@ -6,6 +6,12 @@ class Game : public Scene
 {
 	Bezier1D *curve;
 public:
+
+	void ShowBoundingBox(int shape_num);
+	void ShowBoundingBox(int shape, BoundingBox* bb);
+	void updateBoundings(int shape_num, int boxNum);
+
+	void updateBoundings(int shape_num, int boxNum, BoundingBox* bb);
 	Game(void);
 	Game(glm::vec3 position,float angle,float hwRelation,float near, float far);
 	void Init();
