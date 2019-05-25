@@ -13,6 +13,9 @@ Shape::Shape(const Shape& shape,unsigned int mode)
 	isCopy = true;
 	this->mode = mode;
 	toRender = true;
+	texID = -1;
+	shaderID = 1;
+
 }
 
 Shape::Shape(const std::string& fileName, unsigned int mode){
@@ -20,6 +23,9 @@ Shape::Shape(const std::string& fileName, unsigned int mode){
 	isCopy = false;
 	this->mode = mode;
 	toRender = true;
+	texID = -1;
+	shaderID = 1;
+
 }
 
 Shape::Shape(const int SimpleShapeType,unsigned int mode)
@@ -29,6 +35,9 @@ Shape::Shape(const int SimpleShapeType,unsigned int mode)
 	this->mode = mode;
 	isCopy = false;
 	toRender = true;
+	texID = -1;
+	shaderID = 1;
+
 }
 
 Shape::Shape(Bezier1D *curve, unsigned int xResolution,unsigned int yResolution,bool is2D,unsigned int mode)
@@ -37,21 +46,20 @@ Shape::Shape(Bezier1D *curve, unsigned int xResolution,unsigned int yResolution,
 	this->mode = mode;
 	isCopy = false;
 	toRender = true;
+	texID = -1;
+	shaderID = 1;
+
 }
 
 
-void Shape::AddTexture(const std::string& textureFileName)
+void Shape::Draw( const std::vector<Shader*> shaders, const std::vector<Texture*> textures,bool isPicking)
 {
-	tex = new Texture(textureFileName);
-}
-
-
-void Shape::Draw( const Shader& shader)
-{
-//	if(tex)
-//		tex->Bind();
-
-	shader.Bind();
+	if(texID>=0)
+		textures[texID]->Bind();
+	if(isPicking)
+		shaders[0]->Bind();
+	else
+		shaders[shaderID]->Bind();
 	mesh->Bind();
 	/*if(isCopy)
 		glDrawArrays(GL_TRIANGLES, 0, indicesNum);
@@ -66,8 +74,6 @@ Shape::~Shape(void)
 	{
 		if(mesh)
 			delete mesh;
-		if(tex)
-			delete tex;
 	}
 }
 

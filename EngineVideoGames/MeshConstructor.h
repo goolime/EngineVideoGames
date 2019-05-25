@@ -46,8 +46,9 @@ class MeshConstructor
 	void InitMesh(IndexedModel &model);
 	void CopyMesh(const MeshConstructor &mesh);
 	void CopyLine(const MeshConstructor &mesh);
-
-
+	static const unsigned int VEC3_ATTRIB_NUM = 4;
+	static const unsigned int VEC2_ATTRIB_NUM = 1;
+	
 public:
 	B_Node* boundingTree;
 	//TO DO: add collision detection function which get other MeshConstructor and Mat4 of related transformasions. The function may return a pointer to the relevant Bounding Box when collide

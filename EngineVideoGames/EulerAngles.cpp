@@ -208,15 +208,14 @@ void EulerAngles::buildAngMatrices(glm::mat4 &mat)
 
 	buildAngMatrix(xAxis1,c,-glm::sign(glm::cross(z,n).y)*sqrt(1.0f-c*c));
 
-	glm::vec3 newX = glm::vec3(mat*glm::vec4(1,0,0,0));
-	glm::vec3 x = glm::vec3(phi*theta*glm::vec4(1,0,0,0));
+	
+	//psi = glm::transpose(phi*theta)*mat;
+	glm::vec3 newX =  glm::vec3(glm::transpose(phi*theta)*mat*glm::vec4(1,0,0,0));
+	glm::vec3 x = glm::vec3(1,0,0);//(phi*theta*glm::vec4(1,0,0,0));
  	c = glm::clamp(glm::dot(x,newX),-1.0f,1.0f);
-	//if(c<1.0 && c>-1.0)
-		buildAngMatrix(zAxis2,c,sqrt(1.0f-c*c)*glm::sign(x.y));
-	//else if(c<=-1.0f)
-	//	buildAngMatrix(zAxis2,-1,0);
-	//else
-	//	psi = glm::mat4(1);
+
+	buildAngMatrix(zAxis2,c,sqrt(1.0f-c*c));
+	
 }
 
 glm::mat4 EulerAngles::makeRot() const
