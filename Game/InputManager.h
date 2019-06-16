@@ -17,7 +17,8 @@
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		Game *scn = (Game*)glfwGetWindowUserPointer(window);
-		scn->shapeTransformation(scn->zCameraTranslate,yoffset);
+		scn->ChainMove(scn->pickedShape, scn->zCameraTranslate, yoffset);
+		//scn->shapeTransformation(scn->zCameraTranslate,yoffset);
 		
 	}
 	
@@ -41,23 +42,44 @@
 				break;
 								case GLFW_KEY_RIGHT:
 					//scn->shapeTransformation(scn->zGlobalRotate,-20.1f);
-					scn->shapeTransformation(scn->zLocalRotate,5.1f);
+					scn->ChainMove(scn->pickedShape, scn->zGlobalRotate, 5.1f);
+					//scn->shapeTransformation(scn->zLocalRotate,5.1f);
 //						cout<< "right: "<<endl;
 					break;
 				case GLFW_KEY_LEFT:
 					//scn->shapeTransformation(scn->zGlobalRotate,20.1f);
-					scn->shapeTransformation(scn->zLocalRotate,-5.0f);
+					scn->ChainMove(scn->pickedShape, scn->zGlobalRotate, -5.0f);
+					//scn->shapeTransformation(scn->zLocalRotate,-5.0f);
 //					cout<< "left: "<<endl;
 					break;
 				case GLFW_KEY_UP:
 					//cout<< "up: "<<endl;
-					scn->shapeTransformation(scn->xLocalRotate,5.f);
+					scn->ChainMove(scn->pickedShape, scn->xGlobalRotate, 5.1f);
+					//scn->shapeTransformation(scn->xLocalRotate,5.f);
 					break;
 				case GLFW_KEY_DOWN:
-					scn->shapeTransformation(scn->xGlobalRotate,-5.f);
+					scn->ChainMove(scn->pickedShape, scn->xGlobalRotate, -5.0f);
+					//scn->shapeTransformation(scn->xGlobalRotate,-5.f);
 					//cout<< "down: "<<endl;
 					break;
-
+				case GLFW_KEY_O:
+						scn->pickedShape = 0;
+						break;
+				case GLFW_KEY_0:
+					scn->pickedShape = 1;
+					break;
+				case GLFW_KEY_1:
+					scn->pickedShape = 2;
+					break;
+				case GLFW_KEY_2:
+					scn->pickedShape = 3;
+					break;
+				case GLFW_KEY_3:
+					scn->pickedShape = 4;
+					break;
+				case GLFW_KEY_4:
+					scn->pickedShape = 5;
+					break;
 			default:
 				break;
 			}

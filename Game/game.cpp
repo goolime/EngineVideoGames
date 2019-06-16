@@ -1,52 +1,113 @@
 #include "game.h"
 #include <iostream>
-#include <math.h>
-#define PI 3.14159265
+#include <glm/gtx/dual_quaternion.hpp>
 
 static void printMat(const glm::mat4 mat)
 {
-	std::cout<<" matrix:"<<std::endl;
+	std::cout << " matrix:" << std::endl;
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
-			std::cout<< mat[j][i]<<" ";
-		std::cout<<std::endl;
+			std::cout << mat[j][i] << " ";
+		std::cout << std::endl;
 	}
 }
 
+static void printMat(const glm::mat3x4 mat)
+{
+	std::cout << " matrix trans:" << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 3; j++)
+			std::cout << mat[j][i] << " ";
+		std::cout << std::endl;
+	}
+}
 
-Game::Game():Scene(){curve = 0;}
+static void printMat(glm::dualquat qat)
+{
+	std::cout << "qartnion:" << std::endl;
 
-Game::Game(glm::vec3 position,float angle,float hwRelation,float near, float far) : Scene(position,angle,hwRelation,near,far)
-{ 
+		std::cout << qat.real.x << " " << qat.real.y << " " << qat.real.z << " " << qat.real.w << " " << std::endl;
+		std::cout << qat.dual.x << " " << qat.dual.y << " " << qat.dual.z << " " << qat.dual.w << " " << std::endl;
+	
+
+	std::cout << std::endl;
+	
+}
+
+
+Game::Game() :Scene() { curve = 0; }
+
+Game::Game(glm::vec3 position, float angle, float hwRelation, float near, float far) : Scene(position, angle, hwRelation, near, far)
+{
 	curve = new Bezier1D();
 }
 
-void Game::addShape(int type,int parent,unsigned int mode)
+void Game::addShape(int type, int parent, unsigned int mode)
 {
-		chainParents.push_back(parent);
-		if(type!=BezierLine && type!=BezierSurface)
-			shapes.push_back(new Shape(type,mode));
+	chainParents.push_back(parent);
+	if (type != BezierLine && type != BezierSurface)
+		shapes.push_back(new Shape(type, mode));
+	else
+	{
+		if (type == BezierLine)
+			shapes.push_back(new Shape(curve, 30, 30, false, mode));
 		else
-		{
-			if(type == BezierLine)
-				shapes.push_back(new Shape(curve,30,30,false,mode));
-			else
-				shapes.push_back(new Shape(curve,30,30,true,mode));
-		}
+			shapes.push_back(new Shape(curve, 30, 30, true, mode));
+	}
 }
 
 void Game::Init()
 {
 	addShape(Axis, -1, LINES);
-	addShape(Octahedron, -1, TRIANGLES);
-	//addShape(Octahedron, -1, TRIANGLES);
-	addShapeFromFile("../res/objs/torus.obj",-1,TRIANGLES);
-	//addShape(Tethrahedron, -1, TRIANGLES);
-	//addShapeCopy(3,2,LINE_LOOP);
+//	addShapeFromFile("../res/objs/torus.obj",-1,TRIANGLES);
+//	addShapeCopy(1, -1, TRIANGLES);
+	float x = 1.0;
+	addShape(BezierSurface, -1, TRIANGLES);
+	//curve->MoveControlPoint(0, 0, false, glm::vec4(-1 - x, 1, 0, 0));
+	curve->MoveControlPoint(0, 0, false, glm::vec4(3-x, 1, 0, 0));
+	curve->MoveControlPoint(0, 1, false, glm::vec4(4-x, 1, 0, 0));
+	curve->MoveControlPoint(0, 2, false, glm::vec4(5-x, 1, 0, 0));
+	curve->MoveControlPoint(0, 3, false, glm::vec4(6-x, 1, 0, 0));
+	
 
-
+	//addShape(BezierSurface, -1, TRIANGLES);
+	//pickedShape = 2;
+	//shapeTransformation(xLocalTranslate, 2);
+	//shapeTransformation(xGlobalTranslate, 2);
+	addShape(BezierSurface, -1, TRIANGLES);
+	curve->MoveControlPoint(0, 0, false, glm::vec4(6-x, 1, 0, 0));
+	curve->MoveControlPoint(0, 1, false, glm::vec4(7-x, 1, 0, 0));
+	curve->MoveControlPoint(0, 2, false, glm::vec4(8-x, 1, 0, 0));
+	curve->MoveControlPoint(0, 3, false, glm::vec4(9-x, 1, 0, 0));
+	//pickedShape = 3;
+	//shapeTransformation(xLocalTranslate, 2);
+	//shapeTransformation(xGlobalTranslate, 2);
+	addShape(BezierSurface, -1, TRIANGLES);
+	curve->MoveControlPoint(0, 0, false, glm::vec4(9 - x, 1, 0, 0));
+	curve->MoveControlPoint(0, 1, false, glm::vec4(10 - x, 1, 0, 0));
+	curve->MoveControlPoint(0, 2, false, glm::vec4(11 - x, 1, 0, 0));
+	curve->MoveControlPoint(0, 3, false, glm::vec4(12 - x, 1, 0, 0));
+	//pickedShape = 4;
+	//shapeTransformation(xLocalTranslate, 2);
+	//shapeTransformation(xGlobalTranslate, 2);
+	
+//	curve->MoveControlPoint(0, 3, false, glm::vec4(2 - x, 0, 0, 0));
+	addShape(BezierSurface, -1, TRIANGLES);
+	curve->MoveControlPoint(0, 0, false, glm::vec4(12 - x, 1, 0, 0));
+	curve->MoveControlPoint(0, 1, false, glm::vec4(13 - x, 1, 0, 0));
+	curve->MoveControlPoint(0, 2, false, glm::vec4(14 - x, 1, 0, 0));
+	curve->MoveControlPoint(0, 3, false, glm::vec4(15 - x, 0, 0, 0));
+	//pickedShape = 5;
+	//shapeTransformation(xLocalTranslate, 2);
+	//shapeTransformation(xGlobalTranslate, 2);
+	addShape(BezierSurface, -1, TRIANGLES);
 	//translate all scene away from camera
+	setParent(2, 1);
+	setParent(3, 2);
+	setParent(4, 3);
+	setParent(5, 4);
 	myTranslate(glm::vec3(0, 0, -20), 0);
 
 	pickedShape = 0;
@@ -58,273 +119,87 @@ void Game::Init()
 
 	ReadPixel();
 
-	pickedShape = 1;
-	shapeTransformation(xGlobalTranslate, -3);
-	//shapeTransformation(zLocalRotate, 30);
-	//shapeTransformation(xLocalRotate, 10);
-	//shapeTransformation(xLocalRotate, 10);
-	//shapeTransformation(zLocalRotate, 37);
 
 
 
-	pickedShape = 2;
 
-
-	shapeTransformation(xGlobalTranslate, 5);
-	//shapeTransformation(zLocalRotate, 30);
-	//shapeTransformation(xLocalRotate, 10);
-	//shapeTransformation(zLocalRotate, 100);
-	shapeTransformation(yScale, 0.10f);
-	shapeTransformation(xScale, 0.10f);
-	shapeTransformation(zScale, 0.10f);
-
-
-
-	ShowBoundingBox(1);
-	ShowBoundingBox(2);
-
-
-	addShape(Octahedron, -1, TRIANGLES);
-	addShape(Octahedron, -1, TRIANGLES);
-	addShape(Octahedron, -1, TRIANGLES);
-	addShape(Octahedron, -1, TRIANGLES);
 	pickedShape = -1;
-
-
-
-
 	Activate();
 }
-
-	void Game::Update(const glm::mat4 &MVP,const glm::mat4 &Normal,const int  shaderIndx)
+int count = 0;
+void Game::Update(const glm::mat4 &MVP, const glm::mat4 &myNormal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale)
 {
+
+	glm::mat3x4 pretranlation(glm::transpose(preNormal));
+	glm::mat3x4 nexttranlation(glm::transpose(nextNormal));
+	glm::dualquat prequat= glm::dualquat(glm::dualquat_cast(pretranlation));
+	glm::dualquat nextquat = glm::dualquat(glm::dualquat_cast(nexttranlation));
+
+	glm::mat3x4 tranlation(glm::transpose(myNormal));//glm::transpose(shapes.at(pickedShape)->makeTrans()));
+	glm::dualquat myquat(glm::dualquat_cast(tranlation));
+
+
+	Shape* shape = shapes.at(pickedShape);
 	Shader *s = shaders[shaderIndx];
-	int r = ((pickedShape+1) & 0x000000FF) >>  0;
-	int g = ((pickedShape+1) & 0x0000FF00) >>  8;
-	int b = ((pickedShape+1) & 0x00FF0000) >> 16;
+	//glm::vec3 wight = s.get
+	int r = ((pickedShape + 1) & 0x000000FF) >> 0;
+	int g = ((pickedShape + 1) & 0x0000FF00) >> 8;
+	int b = ((pickedShape + 1) & 0x00FF0000) >> 16;
 	s->Bind();
 	s->SetUniformMat4f("MVP", MVP);
-	s->SetUniformMat4f("Normal", Normal);
-	s->SetUniform4f("lightDirection", 0.0f , 0.0f, -1.0f, 0.0f);
-	if(shaderIndx == 0)
-		s->SetUniform4f("lightColor",r/255.0f, g/255.0f, b/255.0f,1.0f);
-	else 
-		s->SetUniform4f("lightColor",0.1f,0.8f,0.7f,1.0f);
+	s->SetUniformMat4f("Normal", myNormal);
+	s->SetUniformMat4f("preNormal", preNormal);
+	s->SetUniformMat4f("scale", scale);
+	s->SetUniform4f("lightDirection", 0.0f, 0.0f, -1.0f, 0.0f);
+	s->SetUniform4f("prequaternion", prequat.real.x, prequat.real.y, prequat.real.z, prequat.real.w);
+	s->SetUniform4f("myquaternion", myquat.real.x, myquat.real.y, myquat.real.z, myquat.real.w);
+	s->SetUniform4f("nextquaternion", nextquat.real.x, nextquat.real.y, nextquat.real.z, nextquat.real.w);
+
+	s->SetUniform4f("prequaterniondual", prequat.dual.x, prequat.dual.y, prequat.dual.z, prequat.dual.w);
+	s->SetUniform4f("myquaterniondual", myquat.dual.x, myquat.dual.y, myquat.dual.z, myquat.dual.w);
+	s->SetUniform4f("nextquaterniondual", nextquat.dual.x, nextquat.dual.y, nextquat.dual.z, nextquat.dual.w);
+	//s->SetUniform4f("prequaternion", prequat.real.w, prequat.real.x, prequat.real.y, prequat.real.z);
+	//s->SetUniform4f("myquaternion", myquat.real.w, myquat.real.x, myquat.real.y, myquat.real.z);
+	//s->SetUniform4f("nextquaternion", nextquat.real.w, nextquat.real.x, nextquat.real.y, nextquat.real.z);
+
+	//s->SetUniform4f("prequaterniondual", prequat.dual.w, prequat.dual.x, prequat.dual.z, prequat.dual.z);
+	//s->SetUniform4f("myquaterniondual", myquat.dual.w, myquat.dual.x, myquat.dual.y, myquat.dual.z);
+	//s->SetUniform4f("nextquaterniondual", nextquat.dual.w, nextquat.dual.x, nextquat.dual.y, nextquat.dual.z);
+	if (shaderIndx == 0)
+		s->SetUniform4f("lightColor", r / 255.0f, g / 255.0f, b / 255.0f, 1.0f);
+	else
+		s->SetUniform4f("lightColor", 0.1f, 0.8f, 0.7f, 1.0f);
 	s->Unbind();
-}
 
-void Game::ShowBoundingBox(int shape_num) {
-	int p = pickedShape;
-	addShape(Cube, -1, LINE_LOOP);
-	pickedShape = shapes.size() - 1;
-	MeshConstructor* mShape = shapes.at(shape_num)->mesh;
-	B_Node* bNode = mShape->boundingTree;
-	BoundingBox* bb = &bNode->bb;
-	bb->updateValues(shapes.at(shape_num)->makeTrans(), shapes.at(shape_num)->makeScale());
-	shapeTransformation(xGlobalTranslate, 0);
-	shapeTransformation(yGlobalTranslate, 0);
-	shapeTransformation(zGlobalTranslate, 0);
-
-	float rotate = atan2(bb->newzInit.z, bb->newzInit.y) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(xLocalRotate, -rotate);
-
-	//we never rotate in y
-	rotate = atan2(-1 * bb->newzInit.x, sqrt(bb->newzInit.z *bb->newzInit.z + bb->newzInit.y*bb->newzInit.y)) * 180 / PI;
-	//std::cout << rotate << "\n";
-	shapeTransformation(yLocalRotate, rotate);
-
-	rotate = atan2(bb->newxInit.x, bb->newyInit.x) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(zLocalRotate, -rotate);
-
-	shapeTransformation(xGlobalTranslate, bb->newCenter.x);
-	shapeTransformation(yGlobalTranslate, bb->newCenter.y);
-	shapeTransformation(zGlobalTranslate, bb->newCenter.z);
-
-	shapeTransformation(xScale, bb->newsize.x);
-	shapeTransformation(yScale, bb->newsize.y);
-	shapeTransformation(zScale, bb->newsize.z);
-	pickedShape = p;
-}
-
-
-void Game::ShowBoundingBox(int shape, BoundingBox* bb) {
-	int p = pickedShape;
-	addShape(Cube, -1, LINE_LOOP);
-	pickedShape = shapes.size() - 1;
-	
-	bb->updateValues(shapes.at(shape)->makeTrans(), shapes.at(shape)->makeScale());
-	shapeTransformation(xGlobalTranslate, 0);
-	shapeTransformation(yGlobalTranslate, 0);
-	shapeTransformation(zGlobalTranslate, 0);
-
-	float rotate = atan2(bb->newzInit.z, bb->newzInit.y) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(xLocalRotate, -rotate);
-
-	//we never rotate in y
-	rotate = atan2(-1 * bb->newzInit.x, sqrt(bb->newzInit.z *bb->newzInit.z + bb->newzInit.y*bb->newzInit.y)) * 180 / PI;
-	//std::cout << rotate << "\n";
-	shapeTransformation(yLocalRotate, rotate);
-
-	rotate = atan2(bb->newxInit.x, bb->newyInit.x) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(zLocalRotate, -rotate);
-
-	shapeTransformation(xGlobalTranslate, bb->newCenter.x);
-	shapeTransformation(yGlobalTranslate, bb->newCenter.y);
-	shapeTransformation(zGlobalTranslate, bb->newCenter.z);
-	shapeTransformation(yScale, bb->newsize.y);
-	shapeTransformation(xScale, bb->newsize.x);
-	shapeTransformation(zScale, bb->newsize.z);
-	pickedShape = p;
-}
-
-void Game::updateBoundings(int shape_num,int boxNum) {
-	int p = pickedShape;
-	pickedShape = boxNum;
-	shapes.at(pickedShape) = new  Shape(Cube, LINE_LOOP);
-	MeshConstructor* mShape = shapes.at(shape_num)->mesh;
-	B_Node* bNode = mShape->boundingTree;
-	BoundingBox* bb = &bNode->bb;
-	bb->updateValues(shapes.at(shape_num)->makeTrans(), shapes.at(shape_num)->makeScale());
-	shapeTransformation(xGlobalTranslate, 0);
-	shapeTransformation(yGlobalTranslate, 0);
-	shapeTransformation(zGlobalTranslate, 0);
-
-	float rotate = atan2(bb->newzInit.z, bb->newzInit.y) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(xLocalRotate, -rotate);
-
-	//we never rotate in y
-	rotate = atan2(-1 * bb->newzInit.x, sqrt(bb->newzInit.z *bb->newzInit.z + bb->newzInit.y*bb->newzInit.y)) * 180 / PI;
-	//std::cout << rotate << "\n";
-	shapeTransformation(yLocalRotate, rotate);
-
-	rotate = atan2(bb->newxInit.x, bb->newyInit.x) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(zLocalRotate, -rotate);
-
-	shapeTransformation(xGlobalTranslate, bb->newCenter.x);
-	shapeTransformation(yGlobalTranslate, bb->newCenter.y);
-	shapeTransformation(zGlobalTranslate, bb->newCenter.z);
-	shapeTransformation(yScale, bb->newsize.y);
-	shapeTransformation(xScale, bb->newsize.x);
-	shapeTransformation(zScale, bb->newsize.z);
-	pickedShape = p;
-}
-
-void Game::updateBoundings(int shape_num, int boxNum,BoundingBox* bb) {
-	int p = pickedShape;
-	pickedShape = boxNum;
-	shapes.at(pickedShape) = new  Shape(Cube, LINE_LOOP);
-	bb->updateValues(shapes.at(shape_num)->makeTrans(), shapes.at(shape_num)->makeScale());
-	shapeTransformation(xGlobalTranslate, 0);
-	shapeTransformation(yGlobalTranslate, 0);
-	shapeTransformation(zGlobalTranslate, 0);
-
-	float rotate = atan2(bb->newzInit.z, bb->newzInit.y) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(xLocalRotate, -rotate);
-
-	//we never rotate in y
-	rotate = atan2(-1 * bb->newzInit.x, sqrt(bb->newzInit.z *bb->newzInit.z + bb->newzInit.y*bb->newzInit.y)) * 180 / PI;
-	//std::cout << rotate << "\n";
-	shapeTransformation(yLocalRotate, rotate);
-
-	rotate = atan2(bb->newxInit.x, bb->newyInit.x) * 180 / PI - 90;
-	//std::cout << -rotate << "\n";
-	shapeTransformation(zLocalRotate, -rotate);
-
-	shapeTransformation(xGlobalTranslate, bb->newCenter.x);
-	shapeTransformation(yGlobalTranslate, bb->newCenter.y);
-	shapeTransformation(zGlobalTranslate, bb->newCenter.z);
-	shapeTransformation(yScale, bb->newsize.y);
-	shapeTransformation(xScale, bb->newsize.x);
-	shapeTransformation(zScale, bb->newsize.z);
-	pickedShape = p;
 }
 
 void Game::WhenRotate()
 {
-	//if(pickedShape>=0)
+	//if (pickedShape >= 0)
 	//	printMat(GetShapeTransformation());
 }
 
+
 void Game::WhenTranslate()
 {
-	if(pickedShape>=0)
+	if (pickedShape >= 0)
 	{
-		glm::vec4 pos = GetShapeTransformation()*glm::vec4(0,0,0,1);
-	//	std::cout<<"( "<<pos.x<<", "<<pos.y<<", "<<pos.z<<")"<<std::endl;
+		glm::vec4 pos = GetShapeTransformation()*glm::vec4(0, 0, 0, 1);
+		//	std::cout<<"( "<<pos.x<<", "<<pos.y<<", "<<pos.z<<")"<<std::endl;
 	}
 }
-int counter = 0;
-bool moving = true;
+
 void Game::Motion()
 {
-	if (isActive)
+	if (false)
 	{
-		if (moving) {
-			int p = pickedShape;
-			pickedShape = 2;
-			shapeTransformation(xLocalRotate, 0.3);
-			
-			shapeTransformation(zLocalRotate,0.3);
-			pickedShape = 1;
-			shapeTransformation(xLocalTranslate, 0.005);
-			counter++;
-			if (counter % 10 == 1)
-			{
-				std::pair<BoundingBox*, BoundingBox*> pair = shapes.at(1)->checkColsion(shapes.at(2));
-
-				if (pair.first != NULL)
-				{
-
-					pickedShape = 3;
-					shapeTransformation(xGlobalTranslate, 15);
-					pickedShape = 4;
-					shapeTransformation(xGlobalTranslate, 15);
-					ShowBoundingBox(1, pair.first);
-					std::cout << "found collsion\n";
-					if(pair.second == NULL)
-						std::cout << "error\n";
-					else
-					{
-						ShowBoundingBox(2, pair.second);
-					}
-					
-					moving = false;
-
-				}
-			}
-			else
-		
-
-				
-				updateBoundings(1, 3);
-				updateBoundings(2, 4);
-				MeshConstructor* mShape = shapes.at(2)->mesh;
-				B_Node* bNode = mShape->boundingTree;
-				BoundingBox* bb = &bNode->right->bb;
-				updateBoundings(2, 5,bb);
-				 mShape = shapes.at(2)->mesh;
-				 bNode = mShape->boundingTree;
-				 bb = &bNode->right->right->right->right->bb;
-				updateBoundings(2, 6, bb);
-				 mShape = shapes.at(2)->mesh;
-				 bNode = mShape->boundingTree;
-				 bb = &bNode->right->right->bb;
-				updateBoundings(2, 7, bb);
-				 mShape = shapes.at(2)->mesh;
-				 bNode = mShape->boundingTree;
-				 bb = &bNode->right->right->right->bb;
-				updateBoundings(2, 8, bb);
-				counter = 0;
-			
-			pickedShape = p;
-		}
+		ChainMove(1, zLocalRotate, 0.1);
+		ChainMove(1, xLocalTranslate, 0.0001);
+		ChainMove(2, xLocalTranslate, 0.0001);
+	//	int p = pickedShape;
+	//	pickedShape = 2;
+	//	shapeTransformation(zLocalRotate, 0.75);
+	//	pickedShape = p;
 	}
 }
 

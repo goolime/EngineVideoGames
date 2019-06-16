@@ -27,7 +27,7 @@ public:
 	};
 	Scene();
 	Scene(glm::vec3 position,float angle,float hwRelation,float near, float far);
-	
+	void ChainMove(int pick, int type, float amount);
 	void addShapeFromFile(const std::string& fileName,int parent,unsigned int mode);
 	virtual void addShape(int type,int parent,unsigned int mode);
 	void addShapeCopy(int indx,int parent,unsigned int mode);
@@ -37,8 +37,8 @@ public:
 	void ZeroShapesTrans();
 
 	//virtual void Update( glm::mat4 MVP ,glm::mat4 *jointTransforms,const int length,const int  shaderIndx);//
-
-	virtual void Update(const glm::mat4 &MVP,const glm::mat4 &Normal,const int  shaderIndx) = 0;
+	virtual void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale) = 0;
+	//virtual void Update(const glm::mat4 &MVP,const glm::mat4 &Normal,const int  shaderIndx) = 0;
 	virtual void WhenTranslate(){};
 	virtual void WhenRotate(){};
 	virtual void Motion(){};
@@ -77,7 +77,7 @@ public:
 	inline void PrintShapeRotations(int indx){shapes[indx]->printRot(true);}
 	inline void SetShapeTex(int shpIndx,int texIndx){shapes[shpIndx]->SetTexture(texIndx);} 
 	inline void SetShapeShader(int shpIndx,int shdrIndx){shapes[shpIndx]->SetShader(shdrIndx);} 
-	
+	int pickedShape;
 private:	
 
 	std::vector<Camera*> cameras; //light will have the properties of camera
@@ -96,7 +96,7 @@ protected:
 	std::vector<int> chainParents;
 	std::vector<Texture*> textures;
 
-	int pickedShape;
+
 	int direction;
 	static const int scaleFactor =2;
 	bool isActive;

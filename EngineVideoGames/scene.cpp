@@ -90,52 +90,92 @@ using namespace glm;
 	{
 		return shapes[pickedShape]->makeTrans();
 	}
-
+	glm::mat4 mvs[7];
 	void Scene::Draw(int shaderIndx,int cameraIndx,bool debugMode)
 	{
+
 		glm::mat4 Normal = makeTrans();
-		glm::mat4 MVP = cameras[0]->GetViewProjection() * Normal;
-		
+		//glm::mat4 MVP = cameras[0]->GetViewProjection() * Normal;
+		glm::mat4 Pro = cameras[0]->GetViewProjection();
 		int p = pickedShape;
 //		shaders[shaderIndx]->Bind();
+		glm::mat4 prenormal = mat4(1);
+		glm::mat4 nextnormal = mat4(1);
 		for (unsigned int i=0; i<shapes.size();i++)
 		{
+
 			if(shapes[i]->Is2Render())
 			{
+				
+				
+				glm::mat4 superpreNormal  = mat4(1);
+				
 				mat4 Normal1 = mat4(1);
 				pickedShape = i;
+
 				for (int j = i; chainParents[j] > -1; j = chainParents[j])
 				{
-					Normal1 =  shapes[chainParents[j]]->makeTrans() * Normal1;
+					Normal1 = shapes[chainParents[j]]->makeTrans() * Normal1;
 				}
-			
-				mat4 MVP1 = MVP * Normal1; 
+				printf("\n");
+				
+				//prenormal = Normal1;
+				//mat4 MVP1 = MVP * Normal1; 
 				Normal1 = Normal * Normal1;
-
-				MVP1 = MVP1 * shapes[i]->makeTransScale(mat4(1));
-				Normal1 = Normal1 * shapes[i]->makeTrans();
-			    if(i>=1)
+				mat4 MV1 = Normal1;
+				//MVP1 = MVP1 * shapes[i]->makeTransScale(mat4(1));
+				MV1 = MV1 * shapes[i]->makeTransScale(mat4(1));
+				mvs[i] = MV1;
+				//mvp1 = Pro * Normal * preNorma1* scale
+				//
+				//Normal1 = Normal1 * shapes[i]->makeTrans();1* 2 * 3 
+				if (i < shapes.size() - 1)
+					nextnormal = Normal1 * shapes[i + 1]->makeTrans()*shapes[i+1]->makeTransScale(mat4(1));
+			    if(i==3)
 				{
+					int a = 9;
 				//	printMat(shapes[i]->makeTrans());
-				//	printMat(Normal1);
+				//	printMat(basicMat2);
 				//	printMat(MVP1);
 				}
-				
 
-				if(shaderIndx > 0)
+				if (shaderIndx > 0)
 				{
-					Update(MVP1,Normal1,shapes[i]->GetShader());
-					shapes[i]->Draw(shaders,textures,false);
-					
+					//Update(MVP1,Normal1, prenormal, nextnormal,shapes[i]->GetShader(), shapes[i]->makeTransScale(mat4(1)));
+					//if( i == 1)
+					//	Update(Pro, MV1, MV1, nextnormal, shapes[i]->GetShader(), shapes[i]->makeTransScale(mat4(1)), superpreNormal);
+					//else if (i  == shapes.size() - 1)
+					//	Update(Pro, MV1, prenormal, MV1, shapes[i]->GetShader(), shapes[i]->makeTransScale(mat4(1)), superpreNormal);
+					//else 
+					if (i < 1) {
+						Update(Pro, MV1, prenormal, nextnormal, shapes[i]->GetShader(), shapes[i]->makeTransScale(mat4(1)));
+						shapes[i]->Draw(shaders, textures, false);
+					}
 				}
 				else 
 				{
-					Update(MVP1,Normal1,0);
+					//Update(Pro,Normal1, basicMat1, basicMat2,0, shapes[i]->makeTransScale(mat4(1)));
+					Update(Pro, Normal1, prenormal, nextnormal, shapes[i]->GetShader(), shapes[i]->makeTransScale(mat4(1)));
 					shapes[i]->Draw(shaders,textures,true);
 					
 				}
+				prenormal = MV1;
+				if (i == 5) {
+					Update(Pro, mvs[1], mvs[1], mvs[2], shapes[1]->GetShader(), shapes[1]->makeTransScale(mat4(1)));
+					shapes[1]->Draw(shaders, textures, false);
+					Update(Pro, mvs[2], mvs[1], mvs[3], shapes[2]->GetShader(), shapes[2]->makeTransScale(mat4(1)));
+					shapes[2]->Draw(shaders, textures, false);
+					Update(Pro, mvs[3], mvs[2], mvs[4], shapes[3]->GetShader(), shapes[3]->makeTransScale(mat4(1)));
+					shapes[3]->Draw(shaders, textures, false);
+					Update(Pro, mvs[4], mvs[3], mvs[5], shapes[4]->GetShader(), shapes[4]->makeTransScale(mat4(1)));
+					shapes[4]->Draw(shaders, textures, false);
+					Update(Pro, mvs[5], mvs[4], mvs[5], shapes[5]->GetShader(), shapes[5]->makeTransScale(mat4(1)));
+					shapes[5]->Draw(shaders, textures, false);
+				}
 			}
+
 		}
+
 		pickedShape = p;
 	}
 
@@ -470,11 +510,23 @@ using namespace glm;
 			}
 			else
 			{
-				shapeTransformation(zGlobalRotate,xrel*.5f);
-				shapeTransformation(xGlobalRotate,yrel*.5f);
+				//shapeTransformation(zGlobalRotate,xrel*.5f);
+				ChainMove(pickedShape, zGlobalRotate, xrel*.5f);
+				//shapeTransformation(xGlobalRotate,yrel*.5f);
+				ChainMove(pickedShape, xGlobalRotate, yrel*.5f);
 				WhenRotate();
 			}
 		}
+	}
+
+	void Scene::ChainMove(int pick, int type, float amount)
+	{
+		int p = pickedShape;
+		pickedShape = pick;
+		shapeTransformation(type, amount);
+		if (pick < shapes.size() - 1)
+	//		ChainMove(pick + 1, type, amount);
+		pickedShape = p;
 	}
 
 	void Scene::ZeroShapesTrans()

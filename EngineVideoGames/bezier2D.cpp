@@ -43,20 +43,25 @@ IndexedModel Bezier2D::GetSurface(int resT, int resS) {
 					ct = t;
 					cs = s;
 					Vertex p0 = this->GetVertex(T, S, ct, cs);
+					weights.push_back(calcWeight(T, S, ct, cs));
 					if (ct + t_step > 1) ct = 1;
 					else ct += t_step;
 					Vertex p1 = this->GetVertex(T, S, ct, cs);
+					weights.push_back(calcWeight(T, S, ct, cs));
 					if (cs + s_step > 1) cs = 1;
 					else cs += s_step;
 					Vertex p2 = this->GetVertex(T, S, ct, cs);
+					weights.push_back(calcWeight(T, S, ct, cs));
 					ct -= t_step;
 					Vertex p3 = this->GetVertex(T, S, ct, cs);
+					weights.push_back(calcWeight(T, S, ct, cs));
 					//push p0
 					positions.push_back(*p0.GetPos());
 					colors.push_back(my_colors[S]);
 					normals.push_back(*p0.GetNormal());
 					texCoords.push_back(glm::vec2(0, 0));
-					weights.push_back(glm::vec3(1, 1, 1)); // not sure
+
+					//weights.push_back(glm::vec3(1, 1, 1)); // not sure
 					joint_indices.push_back(glm::ivec3(1, 1, 1)); // not sure
 
 					//push p1
@@ -64,7 +69,8 @@ IndexedModel Bezier2D::GetSurface(int resT, int resS) {
 					colors.push_back(my_colors[S]);
 					normals.push_back(*p1.GetNormal());
 					texCoords.push_back(glm::vec2(1, 0));
-					weights.push_back(glm::vec3(1, 1, 1)); // not sure
+
+					//weights.push_back(glm::vec3(1, 1, 1)); // not sure
 					joint_indices.push_back(glm::ivec3(1, 1, 1)); // not sure
 
 					//push p2
@@ -72,7 +78,8 @@ IndexedModel Bezier2D::GetSurface(int resT, int resS) {
 					colors.push_back(my_colors[S]);
 					normals.push_back(*p2.GetNormal());
 					texCoords.push_back(glm::vec2(1, 1));
-					weights.push_back(glm::vec3(1, 1, 1)); // not sure
+				
+					//weights.push_back(glm::vec3(1, 1, 1)); // not sure
 					joint_indices.push_back(glm::ivec3(1, 1, 1)); // not sure
 
 					//push p3
@@ -80,7 +87,8 @@ IndexedModel Bezier2D::GetSurface(int resT, int resS) {
 					colors.push_back(my_colors[S]);
 					normals.push_back(*p3.GetNormal());
 					texCoords.push_back(glm::vec2(0, 1));
-					weights.push_back(glm::vec3(1, 1, 1)); // not sure
+
+					//weights.push_back(glm::vec3(1, 1, 1)); // not sure
 					joint_indices.push_back(glm::ivec3(1, 1, 1)); // not sure
 						//--------------------------------natai testing lines
 					/*glm::vec3 thepoint0(*p0.GetPos());
@@ -158,7 +166,7 @@ Vertex Bezier2D::GetVertex(int segmentT, int segmentS, float t, float s) {
 	glm::vec4 loc = glm::vec4(*my_curve.GetVertex(segmentT, t).GetPos(), 1);
 	float angle = (360 / circularSubdivision)*segmentS + (360 / circularSubdivision)*s;
 	glm::vec4 newloc = loc * glm::rotate(angle, glm::vec3(1, 0, 0));
-	return Vertex(glm::vec3(newloc), glm::vec2(0, 0), GetNormal(segmentT, segmentS, t, s), *my_curve.GetVertex(segmentT, t).GetColor());
+	return Vertex(glm::vec3(newloc), glm::vec2(0, 0), GetNormal(segmentT, segmentS, t, s), *my_curve.GetVertex(segmentT, t).GetColor(),glm::vec3(0,1,0));
 }
 
 glm::vec3 Bezier2D::GetNormal(int segmentT, int segmentS, float t, float s) {
@@ -173,6 +181,17 @@ glm::vec3 Bezier2D::GetNormal(int segmentT, int segmentS, float t, float s) {
 	glm::vec3 temp(1/size, 1/size, 1/size);
 	
 	return   temp* glm::vec3(normal_3d);
+}
+
+glm::vec3 Bezier2D::calcWeight(int segmentT, int segmentS, float t, float s)
+{
+	float f1 = 0, f3 = 0;
+	if (t > 0.5)
+		f3 = (1 - 4.0f*(1 - t)*t)*(1 - t) / 2.0f + (1 - 4.0f*(1 - t)*t)*t / 2.0f;
+	else
+		f1 = (1 - 4.0f*(1 - t)*t)*(1 - t) / 2.0f + (1 - 4.0f*(1 - t)*t)*t / 2.0f;
+	float f2 = (2.0f*(1 - t)*(t + 0.0) + 0.5f);
+	return glm::vec3(f1, f2, f3);
 }
 
 Bezier2D::~Bezier2D(void)

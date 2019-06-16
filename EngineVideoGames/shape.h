@@ -10,7 +10,6 @@ class Shape : public MovableGLM
 {
 private:
 
-	MeshConstructor *mesh;
 	int texID;
 	int shaderID;
 	bool isCopy;
