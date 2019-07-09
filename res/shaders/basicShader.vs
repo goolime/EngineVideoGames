@@ -38,16 +38,16 @@ void main()
 	//position0 = vec3(Normal * vec4(position, 1.0));
 	//gl_Position = MVP * vec4(position, 1.0) ; //you must have gl_Position
 	
-	//vec4 real2 = vec4( myquaternion );
-	//vec4 dual2 = vec4(myquaterniondual );
+	vec4 real2 = vec4( myquaternion );
+	vec4 dual2 = vec4(myquaterniondual );
 	
 	//vec4 real2 = vec4(weights.x * prequaternion + (weights.y+ weights.z ) * myquaternion );
 	//vec4 dual2 = vec4(weights.x * prequaterniondual + (weights.y+ weights.z )* myquaterniondual );
 
 	//vec4 real2 = vec4((weights.x +weights.y) * myquaternion + weights.z *nextquaternion);
 	//vec4 dual2 = vec4((weights.x +weights.y) * myquaterniondual + weights.z *nextquaterniondual);
-	vec4 real2 = vec4(weights.x * prequaternion + weights.y * myquaternion + weights.z * nextquaternion);
-	vec4 dual2 = vec4(weights.x * prequaterniondual + weights.y * myquaterniondual + weights.z * nextquaterniondual);
+	//vec4 real2 = vec4(weights.x * prequaternion + weights.y * myquaternion + weights.z * nextquaternion);
+	//vec4 dual2 = vec4(weights.x * prequaterniondual + weights.y * myquaterniondual + weights.z * nextquaterniondual);
 	//vec4 real = vec4( prequaternion );
 	//vec4 dual = vec4(prequaterniondual );
 	
