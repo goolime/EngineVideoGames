@@ -1,10 +1,4 @@
-#pragma once
-#include "shape.h"
-#include "VertexArray.hpp"
-#include "shader.h"
-#include "MeshConstructor.h"
-#include "game.h"
-#include "texture.h"
+#include "scene.h"
 
 struct SnakePart
 {
@@ -19,16 +13,19 @@ struct SnakePart
 class Snake 
 {
 private:
-	Game* myGame;
+
+	int a = 0;
 	SnakePart Head;
-	SnakePart* Tail;
+	SnakePart* Tail = NULL;
 	glm::vec3 speed = glm::vec3(0.1,0,0);
 	int myLvL=0;
+
 public:
 	int needLvL =0;
-	Snake(Shape* Head,Game* g,int l);
+	Snake();
+	Snake(Shape* Head,int l);
 	void addPart(Shape* part,int l);
-	void move();
+	void move(Scene* myGame);
 
 
 };

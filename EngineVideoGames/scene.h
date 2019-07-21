@@ -10,6 +10,8 @@ class Scene : public MovableGLM
 {
 
 public:
+	std::vector<Camera*> cameras; //light will have the properties of camera
+	//
 	enum axis{xAxis,yAxis,zAxis};
 	enum transformations{xLocalTranslate,yLocalTranslate,zLocalTranslate,xGlobalTranslate,yGlobalTranslate,zGlobalTranslate,
 		xLocalRotate,yLocalRotate,zLocalRotate,xGlobalRotate,yGlobalRotate,zGlobalRotate,xScale,yScale,zScale,xCameraTranslate,yCameraTranslate,zCameraTranslate};
@@ -80,7 +82,7 @@ public:
 	int pickedShape;
 private:	
 
-	std::vector<Camera*> cameras; //light will have the properties of camera
+	
 	
 	Shape *axisMesh;
 	int verticesSize;

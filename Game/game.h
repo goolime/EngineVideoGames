@@ -1,10 +1,16 @@
 #pragma once
 #include "scene.h"
 #include "bezier1D.h"
+#include "Snake.h"
+#include "MapReader.h"
 
 class Game : public Scene
 {
+
 	Bezier1D *curve;
+private:
+	void createshapes(CSVReader* reader, int type, int shapetype, int lvl);
+	Snake* mySnake;
 public:
 
 	void ShowBoundingBox(int shape_num);
