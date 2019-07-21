@@ -42,13 +42,13 @@
 				break;
 								case GLFW_KEY_RIGHT:
 					//scn->shapeTransformation(scn->zGlobalRotate,-20.1f);
-					scn->ChainMove(scn->pickedShape, scn->yLocalRotate, 2.0f);
+					scn->ChainMove(scn->pickedShape, scn->yLocalRotate, -2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,5.1f);
 //						cout<< "right: "<<endl;
 					break;
 				case GLFW_KEY_LEFT:
 					//scn->shapeTransformation(scn->zGlobalRotate,20.1f);
-					scn->ChainMove(scn->pickedShape, scn->yLocalRotate, -2.0f);
+					scn->ChainMove(scn->pickedShape, scn->yLocalRotate, 2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,-5.0f);
 //					cout<< "left: "<<endl;
 					break;

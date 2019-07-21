@@ -55,16 +55,16 @@ void Game::Init()
 	addShape(Cube, -1, LINES);
 	pickedShape = 4;
 	shapeTransformation(xLocalTranslate, 1);
-	shapeTransformation(yLocalTranslate, 1);
+	shapeTransformation(yLocalTranslate, 2);
 	shapeTransformation(yScale, 0.010);
 	shapeTransformation(xScale, 0.010);
 	shapeTransformation(zScale, 0.010);
 	chainParents.at(4) = 1;
 	cameras[0]->target = shapes[1];
 	cameras[0]->me = shapes[4];
-	//cameras[0]->Update();
+	cameras[0]->Update();
 	//translate all scene away from camera
-	myTranslate(glm::vec3(0, 0, -20), 0);
+	//myTranslate(glm::vec3(0, 0, -20), 0);
 
 	pickedShape = 0;
 
@@ -176,10 +176,10 @@ void Game::Motion()
 		//myTranslate(glm::vec3(0, 0, -20- count ), 0);
 		//count += 0.0001;
 		pickedShape = 1;
-		shapeTransformation(xLocalTranslate, -0.005);
+		//shapeTransformation(xLocalTranslate, -0.005);
 		//shapeTransformation(xLocalTranslate, -0.001);
 		//shapeTransformation(yLocalRotate, 0.1);
-		//cameras[0]->Update();
+		cameras[0]->Update();
 		mySnake->move(this);
 
 	}
