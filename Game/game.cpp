@@ -43,14 +43,14 @@ void Game::Init()
 	addShape(BezierSurface, -1, TRIANGLES);
 
 
-	curve->MoveControlPoint(0, 0, false, glm::vec4(0, 1, 0, 0));
+	curve->MoveControlPoint(0, 0, false, glm::vec4(-1.5, 1, 0, 0));
 	addShape(BezierSurface, -1, TRIANGLES);
 	addShape(BezierSurface, -1, TRIANGLES);
 
 	pickedShape = 2;
-	shapeTransformation(xLocalTranslate, 3);
+	shapeTransformation(xGlobalTranslate, 3);
 	pickedShape = 3;
-	shapeTransformation(xLocalTranslate, 6);
+	shapeTransformation(xGlobalTranslate, 6);
 
 	addShape(Cube, -1, LINES);
 	pickedShape = 4;
@@ -62,9 +62,9 @@ void Game::Init()
 	chainParents.at(4) = 1;
 	cameras[0]->target = shapes[1];
 	cameras[0]->me = shapes[4];
-	cameras[0]->Update();
+	//cameras[0]->Update();
 	//translate all scene away from camera
-	//myTranslate(glm::vec3(0, 0, -20), 0);
+	myTranslate(glm::vec3(0, 0, -20), 0);
 
 	pickedShape = 0;
 
@@ -127,7 +127,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype, int lvl)
 		//shapes.at(pickedShape).
 		//change color
 	}
-	cameras[0]->Update();
+	//cameras[0]->Update();
 	pickedShape = -1;
 }
 
@@ -172,17 +172,25 @@ void Game::Motion()
 	int p = pickedShape;
 	if (isActive)
 	{
-		
+		//shapeTransformation(yLocalRotate, 0.2);
 		//myTranslate(glm::vec3(0, 0, -20- count ), 0);
 		//count += 0.0001;
 		pickedShape = 1;
-		shapeTransformation(xLocalTranslate, -0.001);
-		shapeTransformation(yLocalRotate, 0.1);
-		cameras[0]->Update();
-		//	mySnake->move(this);
+		shapeTransformation(xLocalTranslate, -0.005);
+		//shapeTransformation(xLocalTranslate, -0.001);
+		//shapeTransformation(yLocalRotate, 0.1);
+		//cameras[0]->Update();
+		mySnake->move(this);
 
 	}
 	pickedShape = p;
+}
+
+void Game::ChainMove(int pick, int type, float amount) {
+int p = pickedShape;
+	pickedShape = 1;
+	shapeTransformation(type, amount);
+	
 }
 
 Game::~Game(void)

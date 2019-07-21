@@ -26,6 +26,7 @@ public:
 	//void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale); blending
 	void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const int  shaderIndx);
 	
+	void ChainMove(int pick, int type, float amount);
 	void ControlPointUpdate();
 	void WhenRotate();
 	void WhenTranslate();

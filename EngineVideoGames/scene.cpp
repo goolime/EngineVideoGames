@@ -539,4 +539,3 @@ using namespace glm;
 	}
 
 	//----- costome
-	void Scene::ChainMove(int pick, int type, float amount) {}

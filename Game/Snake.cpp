@@ -1,5 +1,6 @@
 #define GLEW_STATIC
 #include <GL\glew.h>
+#include <math.h>
 #include <utility> 
 #include "Snake.h"
 #include "shape.h"
@@ -37,19 +38,68 @@ void Snake::addPart(Shape* part,int l) {
 void Snake::move(Scene* myGame) {
 	int p = myGame->pickedShape;
 	SnakePart* temp = &Head;// we do not move the Head here
+	//move head;
+	glm::vec3 unitvector(1, 0, 0);
+	glm::vec3 myMove = glm::mat3x3(temp->Ifallow->me->makeTransScale()) * unitvector;
+	myGame->shapeTransformation(myGame->xGlobalTranslate, moveVec.x);
+	myGame->shapeTransformation(myGame->yGlobalTranslate, moveVec.y);
+	myGame->shapeTransformation(myGame->zGlobalTranslate, moveVec.z);
+
 	while (temp->MySon != NULL)
 	{
 		temp = temp->MySon;
+
+		myGame->pickedShape = temp->loctionInSapes;
 		// for now only do postion chase wiithout rotation
 		glm::vec3 popPostion = glm::vec3(temp->Ifallow->me->makeTransScale()[3].x, temp->Ifallow->me->makeTransScale()[3].y, temp->Ifallow->me->makeTransScale()[3].z);
 		glm::vec3 myPos = glm::vec3(temp->me->makeTransScale()[3].x, temp->me->makeTransScale()[3].y, temp->me->makeTransScale()[3].z);
-		glm::vec3 newPlace = popPostion + temp->offsetpostion;
-		glm::vec3 moveVec = glm::vec3(0.004)*(newPlace - myPos);
-		myGame->pickedShape = temp->loctionInSapes;
-		myGame->shapeTransformation(myGame->xLocalTranslate, moveVec.x);
-		myGame->shapeTransformation(myGame->yLocalTranslate, moveVec.y);
-		myGame->shapeTransformation(myGame->zLocalTranslate, moveVec.z);
+		glm::vec3 newPlace = popPostion + glm::mat3x3(temp->Ifallow->me->makeTransScale()) * temp->offsetpostion;
+		//glm::vec3 newPlace = popPostion +  temp->offsetpostion;
+		glm::vec3 moveVec = glm::vec3(0.01)*(newPlace - myPos);
+		myGame->shapeTransformation(myGame->xGlobalTranslate, moveVec.x);
+		myGame->shapeTransformation(myGame->yGlobalTranslate, moveVec.y);
+		myGame->shapeTransformation(myGame->zGlobalTranslate, moveVec.z);
+		//rotion
+
+
+
+		glm::vec3 unitvector(1, 0, 0);
+		glm::vec3 popOrition = glm::normalize( glm::mat3x3(temp->Ifallow->me->makeTransScale()) * unitvector);
+		glm::vec3 myOrition =glm::normalize( glm::mat3x3( temp->me->makeTransScale()) * unitvector);
+		//float cosO = (popOrition.x * myOrition.x+ popOrition.y * myOrition.y + popOrition.z * myOrition.z)/(glm::length(popOrition)*glm::length(myOrition) ;
+		//x
+		glm::vec3 atala(0, 1, 1);
+		glm::vec3 crossy = glm::cross(popOrition * atala, myOrition * atala);
+		float cosO = (popOrition.y * myOrition.y + popOrition.z * myOrition.z) / (glm::length(glm::vec2(popOrition.y,popOrition.z))*glm::length(glm::vec2(myOrition.y,myOrition.z)));
+		float alpha = (glm::acos(cosO));
+		if (crossy.x > 0)
+			alpha = -alpha;
+
+		if (alpha< M_PI&& alpha > -M_PI)
+		myGame->shapeTransformation(myGame->xLocalRotate, alpha);
+		//y
+		 atala= glm::vec3(1, 0, 1);
+		 crossy=  glm::cross(popOrition * atala, myOrition * atala);
+		 cosO = (popOrition.x * myOrition.x + popOrition.z * myOrition.z) / (glm::length(glm::vec2(popOrition.x, popOrition.z))*glm::length(glm::vec2(myOrition.x, myOrition.z)));
+		 alpha =(glm::acos(cosO));
+		if (crossy.y > 0)
+			alpha =- alpha;
+
+
+		if (alpha< M_PI&& alpha > -M_PI)
+		myGame->shapeTransformation(myGame->yLocalRotate, alpha);
+		//z
+		atala = glm::vec3(1, 1, 0);
+		 crossy = glm::cross(popOrition * atala, myOrition * atala);
+		 cosO = (popOrition.x * myOrition.x + popOrition.y * myOrition.y) / (glm::length(glm::vec2(popOrition.x, popOrition.y))*glm::length(glm::vec2(myOrition.x, myOrition.y)));
+		 alpha = (glm::acos(cosO));
+		if (crossy.z > 0)
+			alpha = -alpha;
+		if(alpha< M_PI&& alpha > -M_PI)
+			myGame->shapeTransformation(myGame->zLocalRotate, alpha);
 
 	}
 	myGame->pickedShape = p;
 }
+
+

@@ -1,1 +1,3 @@
-﻿
+﻿  main.cpp
+c:\users\lenovo\source\repos\enginevideogames\game\inputmanager.h(20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Game.vcxproj -> C:\Users\Lenovo\Source\Repos\EngineVideoGames\Debug\Game.exe

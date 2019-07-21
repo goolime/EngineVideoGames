@@ -29,7 +29,7 @@ public:
 	};
 	Scene();
 	Scene(glm::vec3 position,float angle,float hwRelation,float near, float far);
-	void ChainMove(int pick, int type, float amount);
+	virtual void ChainMove(int pick, int type, float amount) {};
 	void addShapeFromFile(const std::string& fileName,int parent,unsigned int mode);
 	virtual void addShape(int type,int parent,unsigned int mode);
 	void addShapeCopy(int indx,int parent,unsigned int mode);

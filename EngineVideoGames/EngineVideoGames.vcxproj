@@ -85,6 +85,7 @@
     <ClCompile Include="MovableGLM.cpp" />
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="scene.cpp" />
+    <ClCompile Include="scenebackup.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="stb_image.c" />

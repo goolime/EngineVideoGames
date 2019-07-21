@@ -80,11 +80,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gamebackup.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Snake.cpp" />
+    <ClCompile Include="MapReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
+    <ClInclude Include="MapReader.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Snake.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
