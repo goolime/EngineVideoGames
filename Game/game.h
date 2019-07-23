@@ -9,10 +9,12 @@ class Game : public Scene
 
 	Bezier1D *curve;
 private:
-	void createshapes(CSVReader* reader, int type, int shapetype, int lvl);
+	int Camrasstart = 4;
+	
+	void createshapes(CSVReader* reader, int type, int shapetype);
 	Snake* mySnake;
 public:
-
+	int Curentcamera = 0;
 	void ShowBoundingBox(int shape_num);
 	void ShowBoundingBox(int shape, BoundingBox* bb);
 	void updateBoundings(int shape_num, int boxNum);
@@ -26,7 +28,8 @@ public:
 	//void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale); blending
 	void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const int  shaderIndx);
 	
-	void ChainMove(int pick, int type, float amount);
+	void MoveSnake(int pick, int type, float amount);
+
 	void ControlPointUpdate();
 	void WhenRotate();
 	void WhenTranslate();

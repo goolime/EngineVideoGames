@@ -41,6 +41,8 @@ void Game::Init()
 	addShape(Axis, -1, LINES);
 	float x = 1.0;
 	addShape(BezierSurface, -1, TRIANGLES);
+	pickedShape = 1;
+	shapeTransformation(yGlobalTranslate, 1);
 
 
 	curve->MoveControlPoint(0, 0, false, glm::vec4(-1.5, 1, 0, 0));
@@ -49,20 +51,30 @@ void Game::Init()
 
 	pickedShape = 2;
 	shapeTransformation(xGlobalTranslate, 3);
+	shapeTransformation(yGlobalTranslate, 1);
 	pickedShape = 3;
 	shapeTransformation(xGlobalTranslate, 6);
+	shapeTransformation(yGlobalTranslate, 1);
 
 	addShape(Cube, -1, LINES);
 	pickedShape = 4;
-	shapeTransformation(xLocalTranslate, 1);
+	shapeTransformation(xLocalTranslate, 2);
 	shapeTransformation(yLocalTranslate, 2);
 	shapeTransformation(yScale, 0.010);
 	shapeTransformation(xScale, 0.010);
 	shapeTransformation(zScale, 0.010);
 	chainParents.at(4) = 1;
-	cameras[0]->target = shapes[1];
-	cameras[0]->me = shapes[4];
-	cameras[0]->Update();
+
+	addShape(Cube, -1, LINES);
+	pickedShape = 5;
+	shapeTransformation(xLocalTranslate, 1);
+	shapeTransformation(yLocalTranslate, 30);
+	shapeTransformation(yScale, 0.010);
+	shapeTransformation(xScale, 0.010);
+	shapeTransformation(zScale, 0.010);
+	chainParents.at(5) = 1;
+	//cameras[0]->target = shapes[1];
+	//cameras[0]->me = shapes[4];
 	//translate all scene away from camera
 	//myTranslate(glm::vec3(0, 0, -20), 0);
 
@@ -85,51 +97,137 @@ void Game::Init()
 
 	pickedShape = -1;
 	CSVReader reader("csvMap1.csv");
-	
-	createshapes(&reader, lvl1, Cube, lvl1 / lvl0 - 1);
-	createshapes(&reader, lvl2, Cube, lvl2 / lvl0 - 1);
-	createshapes(&reader, apple, Octahedron, 1);
-	//createshapes(&reader,)
+	createshapes(&reader, apple, Octahedron);
+	createshapes(&reader, lvl1, Cube);
+	createshapes(&reader, lvl2, Cube);
+	//walls
 
-
-	//glm::vec4 pos = reader.getobject(apple, glm::vec2(7, 10));
-	//std::cout << pos.x << "," << pos.y << "," << pos.z << "," << pos.w << std::endl;
-	//// Get the data from CSV File
-	//std::vector < std::vector<std::string> >dataList = reader.getData();
-	//// Print the content of row by row on screen
-	//for (std::vector < std::string >vec : dataList)
 	//{
-	//	for (std::string data : vec)
-	//	{
-	//		std::cout << data << " , ";
-	//	}
-	//	std::cout << std::endl;
+	//	//floor
+	//	pickedShape = shapes.size();
+	//	addShape(Cube, -1, TRIANGLES);
+	//	shapeTransformation(zLocalTranslate, (float)reader.z);
+	//	shapeTransformation(xLocalTranslate, (float)reader.x);
+	//	shapeTransformation(yLocalTranslate, -1 + 0.4);
+	//	shapeTransformation(xScale, reader.x);
+	//	shapeTransformation(zScale, reader.z);
+	//	//wall base
+	//	pickedShape = shapes.size();
+	//	addShape(Cube, -1, TRIANGLES);
+	//	//shapeTransformation(zLocalTranslate, (float)reader.z);
+	//	shapeTransformation(xLocalTranslate, (float)reader.x);
+	//	shapeTransformation(zLocalTranslate, -1);
+	//	shapeTransformation(yLocalTranslate, 4);
+	//	shapeTransformation(yLocalTranslate, 0.4);
+	//	shapeTransformation(xScale, reader.x);
+	//	shapeTransformation(yScale, 6);
+	//	//shapeTransformation(zScale, reader.z);
+	//	//wall right
+	//	pickedShape = shapes.size();
+	//	addShape(Cube, -1, TRIANGLES);
+	//	shapeTransformation(zLocalTranslate, (float)reader.z);
+	//	//shapeTransformation(xLocalTranslate, (float)reader.x);
+	//	shapeTransformation(xLocalTranslate, -1);
+	//	//shapeTransformation(xScale, reader.x);
+	//	shapeTransformation(zScale, reader.z);
+	//	shapeTransformation(yLocalTranslate, 4);
+	//	shapeTransformation(yLocalTranslate, 0.4);
+	//	shapeTransformation(yScale, 6);
+	//	//wall left
+	//	pickedShape = shapes.size();
+	//	addShape(Cube, -1, TRIANGLES);
+	//	shapeTransformation(zLocalTranslate, (float)reader.z);
+	//	shapeTransformation(xLocalTranslate, 2 * (float)reader.x);
+	//	shapeTransformation(xLocalTranslate, -1);
+	//	//shapeTransformation(xScale, reader.x);
+	//	shapeTransformation(zScale, reader.z);
+	//	shapeTransformation(yLocalTranslate, 4);
+	//	shapeTransformation(yLocalTranslate, 0.4);
+	//	shapeTransformation(yScale, 6);
+	//	//wall far
+	//	pickedShape = shapes.size();
+	//	addShape(Cube, -1, TRIANGLES);
+	//	shapeTransformation(zLocalTranslate, 2*(float)reader.z);
+	//	shapeTransformation(xLocalTranslate, (float)reader.x);
+	//	shapeTransformation(zLocalTranslate, -1);
+	//	shapeTransformation(yLocalTranslate, 4);
+	//	shapeTransformation(yLocalTranslate, 0.4);
+	//	shapeTransformation(xScale, reader.x);
+	//	shapeTransformation(yScale, 6);
+	//	//shapeTransformation(zScale, reader.z);
 	//}
-	
+
+	pickedShape = 1;
+	shapeTransformation(yLocalRotate, 90);
+	shapeTransformation(xGlobalTranslate, 20);
+	shapeTransformation(zGlobalTranslate, 10);
 
 	Activate();
 }
 
-void Game::createshapes(CSVReader* reader, int type, int shapetype, int lvl)
+void Game::createshapes(CSVReader* reader, int type, int shapetype)
 {
 	std::vector<obj> myobj = reader->getallobjects(type);
 	for each (obj o in myobj)
 	{
-		int p = shapes.size();
-		std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
-		addShape(shapetype, -1, TRIANGLES);
-		pickedShape = p;
-		shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
-		shapeTransformation(zScale, o.postions.w);
-		shapeTransformation(yGlobalTranslate, lvl);
-		shapeTransformation(xGlobalTranslate, o.postions.x / 4);
-		shapeTransformation(zGlobalTranslate, -o.postions.y / 4);
+		int p = 0;
+		switch (type)
+		{
+		case ramp:
+		case wall:
+		case lvl0:
+		case lvl1:
+		case lvl2:
+		case lvl3:
+			 p = shapes.size();
+			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
+			addShape(shapetype, -1, TRIANGLES);
+			pickedShape = p;	
+			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 - 1);
+			shapeTransformation(xGlobalTranslate,	2*o.postions.x+o.postions.z);
+			shapeTransformation(zGlobalTranslate, 2*o.postions.y+o.postions.w);
+			shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
+			shapeTransformation(zScale, o.postions.w);
+
+			break;
+		case apple:
+		case Gate:
+			for (int i = 0; i < o.postions.z; i++)
+			{
+				for (int j = 0; j < o.postions.w; j++)
+				{
+					 p = shapes.size();
+					//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
+					addShape(shapetype, -1, TRIANGLES);
+					pickedShape = p;
+
+					shapeTransformation(yLocalTranslate, 2*o.lvl + 1);
+					shapeTransformation(xLocalTranslate, 2*(o.postions.x + i)+1);
+					shapeTransformation(zLocalTranslate, 2*(o.postions.y + j)+1);
+					shapeTransformation(xScale, 0.25);
+					shapeTransformation(zScale, 0.25);
+					shapeTransformation(yScale, 0.25);
+
+				}
+			}
+
+			break;
+		case snake:
+		case snakebody:
+			break;
+		default:
+			break;
+		}
+
 		//shapes.at(pickedShape).
 		//change color
 	}
 	//cameras[0]->Update();
 	pickedShape = -1;
 }
+
+void Game::ShowBoundingBox()
+{}
 
 
 void Game::Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const int  shaderIndx)
@@ -179,18 +277,19 @@ void Game::Motion()
 		//shapeTransformation(xLocalTranslate, -0.005);
 		//shapeTransformation(xLocalTranslate, -0.001);
 		//shapeTransformation(yLocalRotate, 0.1);
-		cameras[0]->Update();
+		cameras[0]->Update(shapes[1],shapes[Camrasstart + Curentcamera],glm::vec3(0,1.5,0),glm::vec3(0,0,0));
 		mySnake->move(this);
 
 	}
 	pickedShape = p;
 }
 
-void Game::ChainMove(int pick, int type, float amount) {
-int p = pickedShape;
-	pickedShape = 1;
-	shapeTransformation(type, amount);
+void Game::MoveSnake(int pick, int type, float amount) {
 	
+int p = pickedShape;
+	pickedShape = pick;
+	shapeTransformation(type, amount);
+	pickedShape = p;
 }
 
 Game::~Game(void)

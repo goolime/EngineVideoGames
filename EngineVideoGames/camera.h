@@ -36,6 +36,17 @@ public:
 		return projection ;
 	}
 
+	void Update(Shape* target, Shape* me, glm::vec3 offsetT, glm::vec3 offsetM)
+	{
+		if (me == NULL || target == NULL)
+			this->projection = glm::perspective(fov, relation, near, far)* glm::lookAt(pos, pos + forward, up);
+		else {
+			glm::vec3 tpos(target->makeTransScale()[3]);
+			glm::vec3 mypos(target->makeTransScale() * me->makeTrans()[3]);
+			this->projection = glm::perspective(fov, relation, near, far)* glm::lookAt(mypos+ offsetM, tpos + offsetT, up);
+
+		}
+	}
 	void Update()
 	{
 		if (me == NULL || target == NULL)

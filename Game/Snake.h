@@ -14,10 +14,11 @@ class Snake
 {
 private:
 
+	int speed=5;
 	int a = 0;
 	SnakePart Head;
 	SnakePart* Tail = NULL;
-	glm::vec3 speed = glm::vec3(0.1,0,0);
+	//glm::vec3 speed = glm::vec3(0.1,0,0);
 	int myLvL=0;
 
 public:

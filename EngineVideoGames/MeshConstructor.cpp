@@ -192,6 +192,11 @@ B_Node::B_Node(const B_Node &other):bb(other.bb.center, other.bb.size, other.bb.
 		*right = *other.right;;
 }
 
+std::pair<BoundingBox*, BoundingBox*> MeshConstructor::checkCollsion(MeshConstructor* other, glm::mat4 hisTrans, glm::mat4 myTrans, glm::mat4 b1scale, glm::mat4 b2scale) {
+	return boundingTree->isColiding(myTrans, other->boundingTree, hisTrans, 0, b1scale, b2scale);
+}
+
+//colstion-----------------------------------------------------------
 
 MeshConstructor::MeshConstructor(const int type)
 {
@@ -228,15 +233,10 @@ MeshConstructor::MeshConstructor(const int type)
 	}
 	Kdtree kd;
 	kd.makeTree(point_list);
-	//kd.printTree(kd.getRoot());
-	// need to fix later
-	//kd.printTree(kd.getRoot());
 	boundingTree = new B_Node(kd.getRoot(),glm::vec3(1,1,1),true);
 }
 
-std::pair<BoundingBox*, BoundingBox*> MeshConstructor::checkCollsion(MeshConstructor* other, glm::mat4 hisTrans ,glm::mat4 myTrans, glm::mat4 b1scale, glm::mat4 b2scale) {
-	return boundingTree->isColiding(myTrans,other->boundingTree,hisTrans,0,b1scale,b2scale);
-}
+
 
 MeshConstructor::MeshConstructor(const std::string& fileName)
 {

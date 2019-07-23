@@ -23,6 +23,7 @@ enum objecscode
 struct obj
 {
 	glm::vec4 postions;
+	int lvl;
 	int type;
 
 };
@@ -36,6 +37,8 @@ class CSVReader
 
 	std::vector < std::vector<int>>  getData();
 public:
+	int x = 0;
+	int z = 0;
 	CSVReader(std::string filename, std::string delm = ",") :
 		fileName(filename), delimeter(delm)
 	{

@@ -17,7 +17,7 @@
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		Game *scn = (Game*)glfwGetWindowUserPointer(window);
-		scn->ChainMove(scn->pickedShape, scn->zCameraTranslate, yoffset);
+		scn->MoveSnake(scn->pickedShape, scn->zCameraTranslate, yoffset);
 		//scn->shapeTransformation(scn->zCameraTranslate,yoffset);
 		
 	}
@@ -42,23 +42,24 @@
 				break;
 								case GLFW_KEY_RIGHT:
 					//scn->shapeTransformation(scn->zGlobalRotate,-20.1f);
-					scn->ChainMove(scn->pickedShape, scn->yLocalRotate, -2.0f);
+					scn->MoveSnake(1, scn->yLocalRotate, -2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,5.1f);
 //						cout<< "right: "<<endl;
 					break;
 				case GLFW_KEY_LEFT:
 					//scn->shapeTransformation(scn->zGlobalRotate,20.1f);
-					scn->ChainMove(scn->pickedShape, scn->yLocalRotate, 2.0f);
+					scn->MoveSnake(1, scn->yLocalRotate, 2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,-5.0f);
 //					cout<< "left: "<<endl;
 					break;
 				case GLFW_KEY_UP:
+					scn->Curentcamera = (scn->Curentcamera + 1) % 2;
 					//cout<< "up: "<<endl;
-					scn->ChainMove(scn->pickedShape, scn->xGlobalRotate, 5.1f);
 					//scn->shapeTransformation(scn->xLocalRotate,5.f);
 					break;
 				case GLFW_KEY_DOWN:
-					scn->ChainMove(scn->pickedShape, scn->xGlobalRotate, -5.0f);
+
+					//scn->MoveSnake(scn->pickedShape, scn->xGlobalRotate, -5.0f);
 					//scn->shapeTransformation(scn->xGlobalRotate,-5.f);
 					//cout<< "down: "<<endl;
 					break;

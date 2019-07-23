@@ -29,7 +29,8 @@ public:
 	};
 	Scene();
 	Scene(glm::vec3 position,float angle,float hwRelation,float near, float far);
-	virtual void ChainMove(int pick, int type, float amount) {};
+	virtual void MoveSnake(int pick, int type, float amount) {};
+	virtual void changeCamera(int cameranum) {};
 	void addShapeFromFile(const std::string& fileName,int parent,unsigned int mode);
 	virtual void addShape(int type,int parent,unsigned int mode);
 	void addShapeCopy(int indx,int parent,unsigned int mode);

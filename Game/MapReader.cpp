@@ -29,7 +29,7 @@ glm::vec4 CSVReader::getobject(int value, glm::vec2 start) {
 }
 
 std::vector<obj> CSVReader::getallobjects(int type) {
-	std::vector<obj> test;
+	std::vector<obj> output;
 	int x = 0, y = 0;
 	for (; y < data.size(); y++)
 	{
@@ -37,14 +37,15 @@ std::vector<obj> CSVReader::getallobjects(int type) {
 		{
 			if ((data[y][x] & type) != 0) {
 				obj newobj;
+				newobj.lvl = data[y][x] / (2*lvl0-1);
 				newobj.postions = getobject(type, glm::vec2(x, y));
 				newobj.type = type;
-				test.push_back(newobj);
+				output.push_back(newobj);
 			}
 			//	x = newobj.postions.z;// end of x
 		}
 	}
-	return test;
+	return output;
 }
 std::vector < std::vector<int>>  CSVReader::getData()
 {
@@ -65,5 +66,8 @@ std::vector < std::vector<int>>  CSVReader::getData()
 		dataList.push_back(words);
 	}
 	file.close();
+	z = dataList.size();
+	if(z>0)
+		x = dataList[0].size();
 	return dataList;
 }

@@ -39,7 +39,7 @@ void Snake::move(Scene* myGame) {
 	int p = myGame->pickedShape;
 	SnakePart* temp = &Head;// we do not move the Head here
 	//move head;
-	glm::vec3 unitvector(-0.005, 0, 0);
+	glm::vec3 unitvector(-0.01*speed, 0, 0);
 	glm::vec3 myMove = glm::mat3x3(temp->me->makeTransScale()) * unitvector;
 	myGame->shapeTransformation(myGame->xGlobalTranslate, myMove.x);
 	myGame->shapeTransformation(myGame->yGlobalTranslate, myMove.y);
@@ -55,7 +55,7 @@ void Snake::move(Scene* myGame) {
 		glm::vec3 myPos = glm::vec3(temp->me->makeTransScale()[3].x, temp->me->makeTransScale()[3].y, temp->me->makeTransScale()[3].z);
 		glm::vec3 newPlace = popPostion + glm::mat3x3(temp->Ifallow->me->makeTransScale()) * temp->offsetpostion;
 		//glm::vec3 newPlace = popPostion +  temp->offsetpostion;
-		glm::vec3 moveVec = glm::vec3(0.01)*(newPlace - myPos);
+		glm::vec3 moveVec = glm::vec3(0.01*speed)*(newPlace - myPos);
 		myGame->shapeTransformation(myGame->xGlobalTranslate, moveVec.x);
 		myGame->shapeTransformation(myGame->yGlobalTranslate, moveVec.y);
 		myGame->shapeTransformation(myGame->zGlobalTranslate, moveVec.z);
