@@ -17,6 +17,7 @@ private:
 	bool toRender;
 
 public:
+	int boundingboxLoction = -1;
 
 	std::pair<BoundingBox*, BoundingBox*> checkColsion(Shape* other);
 
@@ -40,7 +41,9 @@ public:
 
 	inline bool Is2D(){return mesh->Is2D();}
 
-	inline void SetTexture(int id){ texID = id;}
+	inline void SetTexture(int id){
+		texID = id;
+	}
 
 	inline void SetShader(int id){ shaderID = id;}
 

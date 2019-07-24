@@ -59,10 +59,9 @@ void Snake::move(Scene* myGame) {
 		myGame->shapeTransformation(myGame->xGlobalTranslate, moveVec.x);
 		myGame->shapeTransformation(myGame->yGlobalTranslate, moveVec.y);
 		myGame->shapeTransformation(myGame->zGlobalTranslate, moveVec.z);
+
+
 		//rotion
-
-
-
 		glm::vec3 unitvector(1, 0, 0);
 		glm::vec3 popOrition = glm::normalize( glm::mat3x3(temp->Ifallow->me->makeTransScale()) * unitvector);
 		glm::vec3 myOrition =glm::normalize( glm::mat3x3( temp->me->makeTransScale()) * unitvector);
@@ -74,9 +73,13 @@ void Snake::move(Scene* myGame) {
 		float alpha = (glm::acos(cosO));
 		if (crossy.x > 0)
 			alpha = -alpha;
-
 		if (alpha< M_PI&& alpha > -M_PI)
 		myGame->shapeTransformation(myGame->xLocalRotate, alpha);
+
+
+
+
+
 		//y
 		 atala= glm::vec3(1, 0, 1);
 		 crossy=  glm::cross(popOrition * atala, myOrition * atala);
@@ -84,10 +87,10 @@ void Snake::move(Scene* myGame) {
 		 alpha =(glm::acos(cosO));
 		if (crossy.y > 0)
 			alpha =- alpha;
-
-
 		if (alpha< M_PI&& alpha > -M_PI)
 		myGame->shapeTransformation(myGame->yLocalRotate, alpha);
+
+
 		//z
 		atala = glm::vec3(1, 1, 0);
 		 crossy = glm::cross(popOrition * atala, myOrition * atala);

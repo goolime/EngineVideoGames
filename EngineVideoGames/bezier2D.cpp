@@ -128,7 +128,7 @@ IndexedModel Bezier2D::GetSurface(int resT, int resS) {
 	ans.positions = positions;
 	ans.colors = colors;
 	ans.texCoords = texCoords;
-	ans.normals = normals;
+	ans.normals = normals ;
 	ans.weights = weights;
 	ans.joint_indices = joint_indices;
 	ans.indices = indices;

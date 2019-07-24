@@ -14,7 +14,7 @@ class Snake
 {
 private:
 
-	int speed=5;
+	int speed=3;
 	int a = 0;
 	SnakePart Head;
 	SnakePart* Tail = NULL;

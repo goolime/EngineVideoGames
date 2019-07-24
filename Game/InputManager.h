@@ -17,7 +17,7 @@
 	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		Game *scn = (Game*)glfwGetWindowUserPointer(window);
-		scn->MoveSnake(scn->pickedShape, scn->zCameraTranslate, yoffset);
+		//scn->MoveSnake(scn->pickedShape, scn->zCameraTranslate, yoffset); jump snake
 		//scn->shapeTransformation(scn->zCameraTranslate,yoffset);
 		
 	}
@@ -53,7 +53,7 @@
 //					cout<< "left: "<<endl;
 					break;
 				case GLFW_KEY_UP:
-					scn->Curentcamera = (scn->Curentcamera + 1) % 2;
+					scn->Curentcamera = (scn->Curentcamera + 1) % 3;
 					//cout<< "up: "<<endl;
 					//scn->shapeTransformation(scn->xLocalRotate,5.f);
 					break;
