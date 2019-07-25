@@ -196,6 +196,45 @@ std::pair<BoundingBox*, BoundingBox*> MeshConstructor::checkCollsion(MeshConstru
 	return boundingTree->isColiding(myTrans, other->boundingTree, hisTrans, 0, b1scale, b2scale);
 }
 
+//v2
+bool B_Node::isColiding2(glm::mat4 myMat, B_Node* other, glm::mat4 otherMat, int lvl, glm::mat4 b1scale, glm::mat4 b2scale) {
+	
+	if (lvl > 6)
+		return true;
+	if (!bb.checkCollision(myMat, other->bb, otherMat, b1scale, b2scale))
+		return  false;
+
+	bool option1 = true;
+	bool option2 = true;
+	bool option3 = true;
+	bool option4 = true;
+
+
+
+
+	if(left != NULL &other->left!=NULL)
+		option1 = left->isColiding2(myMat,other->left,otherMat,lvl+1,b1scale,b2scale);
+	if (left != NULL & other->right != NULL)
+		option2 = left->isColiding2(myMat,other->right,otherMat,lvl+1,b1scale,b2scale);
+	if (right != NULL & other->left != NULL)
+		option3 = right->isColiding2(myMat,other->left,otherMat,lvl+1,b1scale,b2scale);
+	if (right != NULL & other->right != NULL)
+		option3 = right->isColiding2(myMat,other->right,otherMat,lvl+1,b1scale,b2scale);
+
+	if (!option1 & !option2 & !option3 & !option4)
+		return false;
+	return true;
+
+
+
+}
+
+
+bool MeshConstructor::checkCollsion2(MeshConstructor* other, glm::mat4 hisTrans, glm::mat4 myTrans, glm::mat4 b1scale, glm::mat4 b2scale) {
+	return boundingTree->isColiding2(myTrans, other->boundingTree, hisTrans, 0, b1scale, b2scale);
+}
+
+
 //colstion-----------------------------------------------------------
 
 MeshConstructor::MeshConstructor(const int type)

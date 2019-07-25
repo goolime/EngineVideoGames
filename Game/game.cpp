@@ -130,65 +130,65 @@ void Game::Init()
 	createshapes(&reader, lvl2, Cube);
 	//walls
 
-	//{
-	//	//floor
-	//	pickedShape = shapes.size();
-	//	addShape(Cube, -1, TRIANGLES);
-	//	shapes[pickedShape]->SetTexture(grass);
-	//	shapeTransformation(zLocalTranslate, (float)reader.z);
-	//	shapeTransformation(xLocalTranslate, (float)reader.x);
-	//	shapeTransformation(yLocalTranslate, -1 + 0.4);
-	//	shapeTransformation(xScale, reader.x);
-	//	shapeTransformation(zScale, reader.z);
-	//	//wall base
-	//	pickedShape = shapes.size();
-	//	addShape(Cube, -1, TRIANGLES);
-	//	shapes[pickedShape]->SetTexture(bricks);
-	//	//shapeTransformation(zLocalTranslate, (float)reader.z);
-	//	shapeTransformation(xLocalTranslate, (float)reader.x);
-	//	shapeTransformation(zLocalTranslate, -1);
-	//	shapeTransformation(yLocalTranslate, 4);
-	//	shapeTransformation(yLocalTranslate, 0.4);
-	//	shapeTransformation(xScale, reader.x);
-	//	shapeTransformation(yScale, 6);
-	//	//shapeTransformation(zScale, reader.z);
-	//	//wall right
-	//	pickedShape = shapes.size();
-	//	addShape(Cube, -1, TRIANGLES);
-	//	shapes[pickedShape]->SetTexture(bricks);
-	//	shapeTransformation(zLocalTranslate, (float)reader.z);
-	//	//shapeTransformation(xLocalTranslate, (float)reader.x);
-	//	shapeTransformation(xLocalTranslate, -1);
-	//	//shapeTransformation(xScale, reader.x);
-	//	shapeTransformation(zScale, reader.z);
-	//	shapeTransformation(yLocalTranslate, 4);
-	//	shapeTransformation(yLocalTranslate, 0.4);
-	//	shapeTransformation(yScale, 6);
-	//	//wall left
-	//	pickedShape = shapes.size();
-	//	addShape(Cube, -1, TRIANGLES);
-	//	shapes[pickedShape]->SetTexture(bricks);
-	//	shapeTransformation(zLocalTranslate, (float)reader.z);
-	//	shapeTransformation(xLocalTranslate, 2 * (float)reader.x);
-	//	shapeTransformation(xLocalTranslate, -1);
-	//	//shapeTransformation(xScale, reader.x);
-	//	shapeTransformation(zScale, reader.z);
-	//	shapeTransformation(yLocalTranslate, 4);
-	//	shapeTransformation(yLocalTranslate, 0.4);
-	//	shapeTransformation(yScale, 6);
-	//	//wall far
-	//	pickedShape = shapes.size();
-	//	addShape(Cube, -1, TRIANGLES);
-	//	shapes[pickedShape]->SetTexture(bricks);
-	//	shapeTransformation(zLocalTranslate, 2*(float)reader.z);
-	//	shapeTransformation(xLocalTranslate, (float)reader.x);
-	//	shapeTransformation(zLocalTranslate, -1);
-	//	shapeTransformation(yLocalTranslate, 4);
-	//	shapeTransformation(yLocalTranslate, 0.4);
-	//	shapeTransformation(xScale, reader.x);
-	//	shapeTransformation(yScale, 6);
-	//	//shapeTransformation(zScale, reader.z);
-	//}
+	{
+		//floor
+		pickedShape = shapes.size();
+		addShape(Cube, -1, TRIANGLES);
+		shapes[pickedShape]->SetTexture(grass);
+		shapeTransformation(zLocalTranslate, (float)reader.z);
+		shapeTransformation(xLocalTranslate, (float)reader.x);
+		shapeTransformation(yLocalTranslate, -1 + 0.4);
+		shapeTransformation(xScale, reader.x);
+		shapeTransformation(zScale, reader.z);
+		//wall base
+		pickedShape = shapes.size();
+		addShape(Cube, -1, TRIANGLES);
+		shapes[pickedShape]->SetTexture(bricks);
+		//shapeTransformation(zLocalTranslate, (float)reader.z);
+		shapeTransformation(xLocalTranslate, (float)reader.x);
+		shapeTransformation(zLocalTranslate, -1);
+		shapeTransformation(yLocalTranslate, 4);
+		shapeTransformation(yLocalTranslate, 0.4);
+		shapeTransformation(xScale, reader.x);
+		shapeTransformation(yScale, 6);
+		//shapeTransformation(zScale, reader.z);
+		//wall right
+		pickedShape = shapes.size();
+		addShape(Cube, -1, TRIANGLES);
+		shapes[pickedShape]->SetTexture(bricks);
+		shapeTransformation(zLocalTranslate, (float)reader.z);
+		//shapeTransformation(xLocalTranslate, (float)reader.x);
+		shapeTransformation(xLocalTranslate, -1);
+		//shapeTransformation(xScale, reader.x);
+		shapeTransformation(zScale, reader.z);
+		shapeTransformation(yLocalTranslate, 4);
+		shapeTransformation(yLocalTranslate, 0.4);
+		shapeTransformation(yScale, 6);
+		//wall left
+		pickedShape = shapes.size();
+		addShape(Cube, -1, TRIANGLES);
+		shapes[pickedShape]->SetTexture(bricks);
+		shapeTransformation(zLocalTranslate, (float)reader.z);
+		shapeTransformation(xLocalTranslate, 2 * (float)reader.x);
+		shapeTransformation(xLocalTranslate, -1);
+		//shapeTransformation(xScale, reader.x);
+		shapeTransformation(zScale, reader.z);
+		shapeTransformation(yLocalTranslate, 4);
+		shapeTransformation(yLocalTranslate, 0.4);
+		shapeTransformation(yScale, 6);
+		//wall far
+		pickedShape = shapes.size();
+		addShape(Cube, -1, TRIANGLES);
+		shapes[pickedShape]->SetTexture(bricks);
+		shapeTransformation(zLocalTranslate, 2*(float)reader.z);
+		shapeTransformation(xLocalTranslate, (float)reader.x);
+		shapeTransformation(zLocalTranslate, -1);
+		shapeTransformation(yLocalTranslate, 4);
+		shapeTransformation(yLocalTranslate, 0.4);
+		shapeTransformation(xScale, reader.x);
+		shapeTransformation(yScale, 6);
+		//shapeTransformation(zScale, reader.z);
+	}
 
 
 
@@ -248,7 +248,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 				}
 			}
 			CreatBoundingBox(pickedShape);
-
+			temp = pickedShape;
 			break;
 		case snake:
 		case snakebody:
@@ -352,12 +352,19 @@ void Game::Motion()
 		//shapeTransformation(xLocalTranslate, -0.001);
 		//shapeTransformation(yLocalRotate, 0.1);
 		cameras[0]->Update(shapes[1],shapes[Camrasstart + Curentcamera],glm::vec3(0,1.5,0),glm::vec3(0,0,0));
-		//mySnake->move(this);
-		
+		mySnake->move(this);
+		checkCollsion();
 
 	}
 	pickedShape = p;
 }
+
+void Game:: checkCollsion() {
+	if (shapes[1]->checkColsion2(shapes[temp]))
+		std::cout << "hit" << std::endl;
+
+}
+
 
 void Game::MoveSnake(int pick, int type, float amount) {
 	

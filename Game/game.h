@@ -20,6 +20,7 @@ class Game : public Scene
 
 	Bezier1D *curve;
 private:
+	int temp = -1;
 	//end project
 	int Camrasstart = 4;
 	void createshapes(CSVReader* reader, int type, int shapetype);
@@ -27,6 +28,7 @@ private:
 public:
 	int Curentcamera = 0;
 	//ass2
+	void checkCollsion();
 	void CreatBoundingBox(int shape_num);
 	void ShowBoundingBox(int shape, BoundingBox* bb);
 	void updateBoundings(int shape_num, int boxNum);

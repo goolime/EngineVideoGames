@@ -28,6 +28,7 @@ public:
 	B_Node(const B_Node &other);//natai done
 	B_Node();// to delete
 	std::pair<BoundingBox*, BoundingBox*> isColiding(glm::mat4 myMat, B_Node *other, glm::mat4 otherMat,int lvl, glm::mat4 b1scale, glm::mat4 b2scale);//gal
+	bool isColiding2(glm::mat4 myMat, B_Node *other, glm::mat4 otherMat,int lvl, glm::mat4 b1scale, glm::mat4 b2scale);//gal
 	
 	~B_Node(void); // need work
 };
@@ -52,6 +53,7 @@ public:
 	B_Node* boundingTree;
 	//TO DO: add collision detection function which get other MeshConstructor and Mat4 of related transformasions. The function may return a pointer to the relevant Bounding Box when collide
 	std::pair<BoundingBox*, BoundingBox*> checkCollsion(MeshConstructor* other, glm::mat4 hisTrans,glm::mat4 myTrans, glm::mat4 b1scale, glm::mat4 b2scale);//done
+	bool checkCollsion2(MeshConstructor* other, glm::mat4 hisTrans,glm::mat4 myTrans, glm::mat4 b1scale, glm::mat4 b2scale);//done
 	
 	//gal
 

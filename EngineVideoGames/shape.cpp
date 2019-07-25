@@ -81,3 +81,6 @@ Shape::~Shape(void)
 std::pair<BoundingBox*, BoundingBox*>  Shape::checkColsion(Shape* other) {
 	 return mesh->checkCollsion(other->mesh, other->makeTrans(), makeTrans(),makeTransScale(),other->makeTransScale());
 }
+bool  Shape::checkColsion2(Shape* other) {
+	 return mesh->checkCollsion2(other->mesh, other->makeTrans(), makeTrans(),makeTransScale(),other->makeTransScale());
+}

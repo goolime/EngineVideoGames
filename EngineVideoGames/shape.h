@@ -20,6 +20,7 @@ public:
 	int boundingboxLoction = -1;
 
 	std::pair<BoundingBox*, BoundingBox*> checkColsion(Shape* other);
+	bool checkColsion2(Shape* other);
 
 	MeshConstructor *mesh;
 
