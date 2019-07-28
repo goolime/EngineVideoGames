@@ -14,14 +14,18 @@ class Snake
 {
 private:
 
-	int speed=3;
+	void lvlChange(Scene* myGame);
+	int speed=1;
 	int a = 0;
-	SnakePart Head;
+
 	SnakePart* Tail = NULL;
 	//glm::vec3 speed = glm::vec3(0.1,0,0);
 	int myLvL=0;
 
 public:
+	float zangle = 0;
+	SnakePart Head;
+	int canColiod = 0;
 	int needLvL =0;
 	Snake();
 	Snake(Shape* Head,int l);

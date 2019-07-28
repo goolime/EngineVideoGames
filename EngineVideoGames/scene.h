@@ -6,10 +6,12 @@
 #include <vector>
 
 
+
 class Scene : public MovableGLM
 {
 
 public:
+
 	std::vector<Camera*> cameras; //light will have the properties of camera
 	//
 	enum axis{xAxis,yAxis,zAxis};
@@ -29,7 +31,7 @@ public:
 	};
 	Scene();
 	Scene(glm::vec3 position,float angle,float hwRelation,float near, float far);
-	virtual void MoveSnake(int pick, int type, float amount) {};
+	virtual void MoveSnake( int type, float amount) {};
 	virtual void changeCamera(int cameranum) {};
 	void addShapeFromFile(const std::string& fileName,int parent,unsigned int mode);
 	virtual void addShape(int type,int parent,unsigned int mode);
@@ -42,10 +44,14 @@ public:
 	//virtual void Update( glm::mat4 MVP ,glm::mat4 *jointTransforms,const int length,const int  shaderIndx);//
 	//virtual void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale) = 0;
 	virtual void Update(const glm::mat4 &MVP,const glm::mat4 &Normal,const int  shaderIndx) = 0;
+	virtual void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale) = 0;
+	virtual std::vector<glm::vec3> skinning_shapes() = 0;
 	virtual void WhenTranslate(){};
 	virtual void WhenRotate(){};
 	virtual void Motion(){};
 	virtual void Draw(int shaderIndx,int cameraIndx,bool debugMode);
+	virtual void Draw2(int shaderIndx,int cameraIndx,bool debugMode);
+
 
 	glm::mat4 GetViewProjection(int indx) const; 
 	glm::mat4 GetShapeTransformation() const;
@@ -81,9 +87,9 @@ public:
 	inline void SetShapeTex(int shpIndx,int texIndx){shapes[shpIndx]->SetTexture(texIndx);} 
 	inline void SetShapeShader(int shpIndx,int shdrIndx){shapes[shpIndx]->SetShader(shdrIndx);} 
 	int pickedShape;
+
 private:	
 
-	
 	
 	Shape *axisMesh;
 	int verticesSize;

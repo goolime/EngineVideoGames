@@ -20,11 +20,18 @@ class Game : public Scene
 
 	Bezier1D *curve;
 private:
-	int temp = -1;
+	CSVReader* reader= NULL;
 	//end project
+	std::vector<Shape*> Sapples;
+	std::vector<Shape*> Sramps;
+	std::vector<Shape*> Swalls;
+	Shape* SGate;
 	int Camrasstart = 4;
+	void creatWalls();
+	void setCamera();
 	void createshapes(CSVReader* reader, int type, int shapetype);
 	Snake* mySnake;
+
 public:
 	int Curentcamera = 0;
 	//ass2
@@ -42,9 +49,12 @@ public:
 	//void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale); blending
 	//ass3
 	void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const int  shaderIndx);
-	
+	void Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale);
+	std::vector<glm::vec3> skinning_shapes();
+
+
 	//end project
-	void MoveSnake(int pick, int type, float amount);
+	void MoveSnake( int type, float amount);
 
 	void ControlPointUpdate();
 	void WhenRotate();

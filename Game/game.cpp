@@ -1,6 +1,7 @@
 #include "game.h"
 #include <math.h>
 #include <iostream>
+#include <glm/gtx/dual_quaternion.hpp>
 
 
 static void printMat(const glm::mat4 mat)
@@ -45,150 +46,57 @@ void Game::Init()
 	this->AddTexture("../res/textures/plane.png");
 	this->AddTexture("../res/textures/snake.jpg");
 	this->AddTexture("../res/textures/snake1.png");
-
-	addShape(Axis, -1, LINES);
-	float x = 1.0;
-	addShape(BezierSurface, -1, TRIANGLES);
-	pickedShape = 1;
-
-	shapes[pickedShape]->SetTexture(plane);
-	shapeTransformation(yGlobalTranslate, 1);
-
-
-	curve->MoveControlPoint(0, 0, false, glm::vec4(-1.5, 1, 0, 0));
-	addShape(BezierSurface, -1, TRIANGLES);
-	addShape(BezierSurface, -1, TRIANGLES);
-
-	pickedShape = 2;
-	shapes[pickedShape]->SetTexture(plane);
-	shapeTransformation(xGlobalTranslate, 3);
-	shapeTransformation(yGlobalTranslate, 1);
-	pickedShape = 3;
-	shapes[pickedShape]->SetTexture(plane);
-	shapeTransformation(xGlobalTranslate, 6);
-	shapeTransformation(yGlobalTranslate, 1);
-
-	//camera
-	{
-		pickedShape = shapes.size();
-		Camrasstart = pickedShape;
-		addShape(Cube, -1, LINES);
-		shapeTransformation(xLocalTranslate, 2);
-		shapeTransformation(yLocalTranslate, 2);
-		shapeTransformation(yScale, 0.010);
-		shapeTransformation(xScale, 0.010);
-		shapeTransformation(zScale, 0.010);
-		chainParents.at(pickedShape) = 1;
-
-		pickedShape = shapes.size();
-		addShape(Cube, -1, LINES);
-		shapeTransformation(xLocalTranslate, 1);
-		shapeTransformation(yLocalTranslate, 30);
-		shapeTransformation(yScale, 0.010);
-		shapeTransformation(xScale, 0.010);
-		shapeTransformation(zScale, 0.010);
-		chainParents.at(pickedShape) = 1;
-
-		pickedShape = shapes.size();
-		addShape(Cube, -1, LINES);
-		shapeTransformation(xLocalTranslate, -4);
-		shapeTransformation(zLocalTranslate, -8);
-		shapeTransformation(yLocalTranslate, 0.5);
-		shapeTransformation(yScale, 0.010);
-		shapeTransformation(xScale, 0.010);
-		shapeTransformation(zScale, 0.010);
-		chainParents.at(pickedShape) = 1;
-
-		//translate all scene away from camera
-		//myTranslate(glm::vec3(0, 0, 20), 0);
-	}
-
-
 	
-	pickedShape = 0;
-
+	pickedShape = shapes.size();
+	addShape(Axis, -1, LINES);
 	shapeTransformation(yScale, 10);
 	shapeTransformation(xScale, 10);
 	shapeTransformation(zScale, 10);
 
 
+	//pickedShape = shapes.size();
+	//addShape(Cube, -1, TRIANGLES);
+	//shapes[pickedShape]->Hide();
+	//shapeTransformation(yScale, 0.10);
+	//shapeTransformation(xScale, 0.10);
+	//shapeTransformation(zScale, 0.10);
 
-
-	pickedShape = -1;
-	mySnake = new Snake(shapes.at(1), 1);
-	mySnake->addPart(shapes.at(2), 2);
-	mySnake->addPart(shapes.at(3), 3);
-	CreatBoundingBox(1);
-	pickedShape = 1;
-	//shapeTransformation(xLocalTranslate, -5);
-
-
-	pickedShape = -1;
-	CSVReader reader("csvMap1.csv");
-	createshapes(&reader, apple, Octahedron);
-	createshapes(&reader, lvl1, Cube);
-	createshapes(&reader, lvl2, Cube);
-	//walls
-
+	
+	//snake body
 	{
-		//floor
 		pickedShape = shapes.size();
-		addShape(Cube, -1, TRIANGLES);
-		shapes[pickedShape]->SetTexture(grass);
-		shapeTransformation(zLocalTranslate, (float)reader.z);
-		shapeTransformation(xLocalTranslate, (float)reader.x);
-		shapeTransformation(yLocalTranslate, -1 + 0.4);
-		shapeTransformation(xScale, reader.x);
-		shapeTransformation(zScale, reader.z);
-		//wall base
-		pickedShape = shapes.size();
-		addShape(Cube, -1, TRIANGLES);
-		shapes[pickedShape]->SetTexture(bricks);
-		//shapeTransformation(zLocalTranslate, (float)reader.z);
-		shapeTransformation(xLocalTranslate, (float)reader.x);
-		shapeTransformation(zLocalTranslate, -1);
-		shapeTransformation(yLocalTranslate, 4);
-		shapeTransformation(yLocalTranslate, 0.4);
-		shapeTransformation(xScale, reader.x);
-		shapeTransformation(yScale, 6);
-		//shapeTransformation(zScale, reader.z);
-		//wall right
-		pickedShape = shapes.size();
-		addShape(Cube, -1, TRIANGLES);
-		shapes[pickedShape]->SetTexture(bricks);
-		shapeTransformation(zLocalTranslate, (float)reader.z);
-		//shapeTransformation(xLocalTranslate, (float)reader.x);
-		shapeTransformation(xLocalTranslate, -1);
-		//shapeTransformation(xScale, reader.x);
-		shapeTransformation(zScale, reader.z);
-		shapeTransformation(yLocalTranslate, 4);
-		shapeTransformation(yLocalTranslate, 0.4);
-		shapeTransformation(yScale, 6);
-		//wall left
-		pickedShape = shapes.size();
-		addShape(Cube, -1, TRIANGLES);
-		shapes[pickedShape]->SetTexture(bricks);
-		shapeTransformation(zLocalTranslate, (float)reader.z);
-		shapeTransformation(xLocalTranslate, 2 * (float)reader.x);
-		shapeTransformation(xLocalTranslate, -1);
-		//shapeTransformation(xScale, reader.x);
-		shapeTransformation(zScale, reader.z);
-		shapeTransformation(yLocalTranslate, 4);
-		shapeTransformation(yLocalTranslate, 0.4);
-		shapeTransformation(yScale, 6);
-		//wall far
-		pickedShape = shapes.size();
-		addShape(Cube, -1, TRIANGLES);
-		shapes[pickedShape]->SetTexture(bricks);
-		shapeTransformation(zLocalTranslate, 2*(float)reader.z);
-		shapeTransformation(xLocalTranslate, (float)reader.x);
-		shapeTransformation(zLocalTranslate, -1);
-		shapeTransformation(yLocalTranslate, 4);
-		shapeTransformation(yLocalTranslate, 0.4);
-		shapeTransformation(xScale, reader.x);
-		shapeTransformation(yScale, 6);
-		//shapeTransformation(zScale, reader.z);
+		addShape(BezierSurface, -1, TRIANGLES);
+		shapes[pickedShape]->SetTexture(plane);
+		shapeTransformation(yGlobalTranslate, 1);
+		//shapeTransformation(xGlobalTranslate, 3 );
+		mySnake = new Snake(shapes.at(pickedShape), pickedShape);
+
+		curve->MoveControlPoint(0, 0, false, glm::vec4(-1.5, 1, 0, 0));
+		for (int i = 1; i < 4; i++) {
+			pickedShape = shapes.size();
+			addShape(BezierSurface, -1, TRIANGLES);
+			shapes[pickedShape]->SetTexture(plane);
+			shapeTransformation(xGlobalTranslate, 3 * i);
+			shapeTransformation(yGlobalTranslate, 1);
+			mySnake->addPart(shapes.at(pickedShape), pickedShape);
+		}
+
 	}
+	//camera
+	setCamera();
+	//translate all scene away from camera
+	//myTranslate(glm::vec3(0, 0, -20), 0);
+
+	
+
+	
+	reader = new CSVReader("csvMap1.csv");
+	createshapes(reader, apple, Octahedron);
+	createshapes(reader, lvl1, Cube);
+	createshapes(reader, lvl2, Cube);
+	//walls
+	creatWalls();
+	
 
 
 
@@ -225,10 +133,10 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			shapeTransformation(zGlobalTranslate, 2*o.postions.y+o.postions.w);
 			shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
 			shapeTransformation(zScale, o.postions.w);
-
+			
 			break;
 		case apple:
-		case Gate:
+
 			for (int i = 0; i < o.postions.z; i++)
 			{
 				for (int j = 0; j < o.postions.w; j++)
@@ -244,11 +152,12 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 					shapeTransformation(xScale, 0.25);
 					shapeTransformation(zScale, 0.25);
 					shapeTransformation(yScale, 0.25);
-
+					Sapples.push_back(shapes[pickedShape]);
 				}
 			}
-			CreatBoundingBox(pickedShape);
-			temp = pickedShape;
+
+			break;
+		case Gate:
 			break;
 		case snake:
 		case snakebody:
@@ -321,6 +230,79 @@ void Game::Update(const glm::mat4 &MVP, const glm::mat4 &Normal, const int  shad
 	s->Unbind();
 }
 
+void Game::Update(const glm::mat4 &MVP, const glm::mat4 &myNormal, const glm::mat4 &preNormal, const glm::mat4 &nextNormal, const int  shaderIndx, const glm::mat4 &scale)
+{
+
+	glm::mat3x4 pretranlation(glm::transpose(preNormal));
+	glm::mat3x4 nexttranlation(glm::transpose(nextNormal));
+	glm::dualquat prequat = glm::dualquat(glm::dualquat_cast(pretranlation));
+	glm::dualquat nextquat = glm::dualquat(glm::dualquat_cast(nexttranlation));
+
+	glm::mat3x4 tranlation(glm::transpose(myNormal));//glm::transpose(shapes.at(pickedShape)->makeTrans()));
+	glm::dualquat myquat(glm::dualquat_cast(tranlation));
+
+
+	Shape* shape = shapes.at(pickedShape);
+	Shader *s = shaders[shaderIndx];
+	//glm::vec3 wight = s.get
+	int r = ((pickedShape + 1) & 0x000000FF) >> 0;
+	int g = ((pickedShape + 1) & 0x0000FF00) >> 8;
+	int b = ((pickedShape + 1) & 0x00FF0000) >> 16;
+	s->Bind();
+	s->SetUniformMat4f("MVP", MVP);
+	s->SetUniformMat4f("Normal", myNormal);
+	s->SetUniformMat4f("preNormal", preNormal);
+	s->SetUniformMat4f("scale", scale);
+	s->SetUniform4f("lightDirection", 0.0f, 0.0f, -1.0f, 0.0f);
+	s->SetUniform4f("prequaternion", prequat.real.x, prequat.real.y, prequat.real.z, prequat.real.w);
+	s->SetUniform4f("myquaternion", myquat.real.x, myquat.real.y, myquat.real.z, myquat.real.w);
+	s->SetUniform4f("nextquaternion", nextquat.real.x, nextquat.real.y, nextquat.real.z, nextquat.real.w);
+
+	s->SetUniform4f("prequaterniondual", prequat.dual.x, prequat.dual.y, prequat.dual.z, prequat.dual.w);
+	s->SetUniform4f("myquaterniondual", myquat.dual.x, myquat.dual.y, myquat.dual.z, myquat.dual.w);
+	s->SetUniform4f("nextquaterniondual", nextquat.dual.x, nextquat.dual.y, nextquat.dual.z, nextquat.dual.w);
+	//s->SetUniform4f("prequaternion", prequat.real.w, prequat.real.x, prequat.real.y, prequat.real.z);
+	//s->SetUniform4f("myquaternion", myquat.real.w, myquat.real.x, myquat.real.y, myquat.real.z);
+	//s->SetUniform4f("nextquaternion", nextquat.real.w, nextquat.real.x, nextquat.real.y, nextquat.real.z);
+
+	//s->SetUniform4f("prequaterniondual", prequat.dual.w, prequat.dual.x, prequat.dual.z, prequat.dual.z);
+	//s->SetUniform4f("myquaterniondual", myquat.dual.w, myquat.dual.x, myquat.dual.y, myquat.dual.z);
+	//s->SetUniform4f("nextquaterniondual", nextquat.dual.w, nextquat.dual.x, nextquat.dual.y, nextquat.dual.z);
+	if (shaderIndx == 0)
+		s->SetUniform4f("lightColor", r / 255.0f, g / 255.0f, b / 255.0f, 1.0f);
+	else
+		s->SetUniform4f("lightColor", 0.1f, 0.8f, 0.7f, 1.0f);
+	s->Unbind();
+
+}
+
+std::vector<glm::vec3> Game::skinning_shapes() {
+	std::vector<glm::vec3> skin;
+	SnakePart* temp = &mySnake->Head;
+	while (temp != NULL)
+	{
+
+		glm::vec3 skinloction(1);
+		if (temp->Ifallow == NULL) // only head
+			skinloction.x = temp->loctionInSapes;
+		else
+			skinloction.x = temp->Ifallow->loctionInSapes;
+
+		skinloction.y = temp->loctionInSapes;
+
+		if (temp->MySon== NULL) // only tail
+			skinloction.z = temp->loctionInSapes;
+		else
+			skinloction.z = temp->MySon->loctionInSapes;
+
+		skin.push_back(skinloction);
+		
+		temp = temp->MySon;
+	}
+
+	return skin;
+}
+
 void Game::WhenRotate()
 {
 	//if(pickedShape>=0)
@@ -351,7 +333,7 @@ void Game::Motion()
 		//shapeTransformation(xLocalTranslate, -0.005);
 		//shapeTransformation(xLocalTranslate, -0.001);
 		//shapeTransformation(yLocalRotate, 0.1);
-		cameras[0]->Update(shapes[1],shapes[Camrasstart + Curentcamera],glm::vec3(0,1.5,0),glm::vec3(0,0,0));
+		cameras[0]->Update(mySnake->Head.me,shapes[Camrasstart + Curentcamera],glm::vec3(0,1.5,0),glm::vec3(0,0,0));
 		mySnake->move(this);
 		checkCollsion();
 
@@ -360,19 +342,133 @@ void Game::Motion()
 }
 
 void Game:: checkCollsion() {
-	if (shapes[1]->checkColsion2(shapes[temp]))
-		std::cout << "hit" << std::endl;
+	for each (Shape* a in Sapples)
+	{
+		if (mySnake->Head.me->checkColsion2(a)) {
+			std::cout << "hit" << std::endl;
+			if (!(mySnake->canColiod & ramp))
+			{
+				mySnake->canColiod += ramp;
+				//mySnake->zangle += -35;
+				//shapeTransformation(zLocalRotate, -35);
+				mySnake->needLvL++;
+			}
+		}
+	}
+	for each (Shape* r in Sramps)
+	{
+		if (!(mySnake->canColiod & ramp))
+		{
+			mySnake->canColiod += ramp;
+
+		}
+	}
+
 
 }
 
-
-void Game::MoveSnake(int pick, int type, float amount) {
+void Game::MoveSnake( int type, float amount) {
 	
 int p = pickedShape;
-	pickedShape = pick;
+	pickedShape = mySnake->Head.loctionInSapes;
 	shapeTransformation(type, amount);
 	pickedShape = p;
 }
+
+void Game::creatWalls() {
+	//floor
+	pickedShape = shapes.size();
+	addShape(Cube, -1, TRIANGLES);
+	shapes[pickedShape]->SetTexture(grass);
+	shapeTransformation(zLocalTranslate, (float)reader->z);
+	shapeTransformation(xLocalTranslate, (float)reader->x);
+	shapeTransformation(yLocalTranslate, -1 + 0.4);
+	shapeTransformation(xScale, reader->x);
+	shapeTransformation(zScale, reader->z);
+	//wall base
+	pickedShape = shapes.size();
+	addShape(Cube, -1, TRIANGLES);
+	shapes[pickedShape]->SetTexture(bricks);
+	//shapeTransformation(zLocalTranslate, (float)reader->z);
+	shapeTransformation(xLocalTranslate, (float)reader->x);
+	shapeTransformation(zLocalTranslate, -1);
+	shapeTransformation(yLocalTranslate, 4);
+	shapeTransformation(yLocalTranslate, 0.4);
+	shapeTransformation(xScale, reader->x);
+	shapeTransformation(yScale, 6);
+	//shapeTransformation(zScale, reader->z);
+	//wall right
+	pickedShape = shapes.size();
+	addShape(Cube, -1, TRIANGLES);
+	shapes[pickedShape]->SetTexture(bricks);
+	shapeTransformation(zLocalTranslate, (float)reader->z);
+	//shapeTransformation(xLocalTranslate, (float)reader->x);
+	shapeTransformation(xLocalTranslate, -1);
+	//shapeTransformation(xScale, reader->x);
+	shapeTransformation(zScale, reader->z);
+	shapeTransformation(yLocalTranslate, 4);
+	shapeTransformation(yLocalTranslate, 0.4);
+	shapeTransformation(yScale, 6);
+	//wall left
+	pickedShape = shapes.size();
+	addShape(Cube, -1, TRIANGLES);
+	shapes[pickedShape]->SetTexture(bricks);
+	shapeTransformation(zLocalTranslate, (float)reader->z);
+	shapeTransformation(xLocalTranslate, 2 * (float)reader->x);
+	shapeTransformation(xLocalTranslate, -1);
+	//shapeTransformation(xScale, reader->x);
+	shapeTransformation(zScale, reader->z);
+	shapeTransformation(yLocalTranslate, 4);
+	shapeTransformation(yLocalTranslate, 0.4);
+	shapeTransformation(yScale, 6);
+	//wall far
+	pickedShape = shapes.size();
+	addShape(Cube, -1, TRIANGLES);
+	shapes[pickedShape]->SetTexture(bricks);
+	shapeTransformation(zLocalTranslate, 2 * (float)reader->z);
+	shapeTransformation(xLocalTranslate, (float)reader->x);
+	shapeTransformation(zLocalTranslate, -1);
+	shapeTransformation(yLocalTranslate, 4);
+	shapeTransformation(yLocalTranslate, 0.4);
+	shapeTransformation(xScale, reader->x);
+	shapeTransformation(yScale, 6);
+	//shapeTransformation(zScale, reader->z);
+}
+void Game::setCamera() {
+
+	pickedShape = shapes.size();
+	Camrasstart = pickedShape;
+	addShape(Cube, -1, LINES);
+	shapeTransformation(xLocalTranslate, 2);
+	shapeTransformation(yLocalTranslate, 2);
+	shapeTransformation(yScale, 0.010);
+	shapeTransformation(xScale, 0.010);
+	shapeTransformation(zScale, 0.010);
+	chainParents.at(pickedShape) = 1;
+
+	pickedShape = shapes.size();
+	addShape(Cube, -1, LINES);
+	shapeTransformation(xLocalTranslate, 1);
+	shapeTransformation(yLocalTranslate, 30);
+	shapeTransformation(yScale, 0.010);
+	shapeTransformation(xScale, 0.010);
+	shapeTransformation(zScale, 0.010);
+	chainParents.at(pickedShape) = 1;
+
+	pickedShape = shapes.size();
+	addShape(Cube, -1, LINES);
+	shapeTransformation(xLocalTranslate, -4);
+	shapeTransformation(zLocalTranslate, -8);
+	shapeTransformation(yLocalTranslate, 0.5);
+	shapeTransformation(yScale, 0.010);
+	shapeTransformation(xScale, 0.010);
+	shapeTransformation(zScale, 0.010);
+	chainParents.at(pickedShape) = 1;
+
+
+
+}
+
 
 Game::~Game(void)
 {

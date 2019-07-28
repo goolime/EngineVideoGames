@@ -42,29 +42,29 @@
 				break;
 								case GLFW_KEY_RIGHT:
 					//scn->shapeTransformation(scn->zGlobalRotate,-20.1f);
-					scn->MoveSnake(1, scn->yLocalRotate, -2.0f);
+					scn->MoveSnake( scn->yLocalRotate, -2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,5.1f);
 //						cout<< "right: "<<endl;
 					break;
 				case GLFW_KEY_LEFT:
 					//scn->shapeTransformation(scn->zGlobalRotate,20.1f);
-					scn->MoveSnake(1, scn->yLocalRotate, 2.0f);
+					scn->MoveSnake( scn->yLocalRotate, 2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,-5.0f);
 //					cout<< "left: "<<endl;
 					break;
 				case GLFW_KEY_UP:
-					scn->Curentcamera = (scn->Curentcamera + 1) % 3;
+					
 					//cout<< "up: "<<endl;
-					//scn->shapeTransformation(scn->xLocalRotate,5.f);
+					//scn->MoveSnake(scn->zLocalRotate, 2.0f);
 					break;
 				case GLFW_KEY_DOWN:
-
+					//scn->MoveSnake(scn->zLocalRotate, -2.0f);
 					//scn->MoveSnake(scn->pickedShape, scn->xGlobalRotate, -5.0f);
 					//scn->shapeTransformation(scn->xGlobalRotate,-5.f);
 					//cout<< "down: "<<endl;
 					break;
 				case GLFW_KEY_O:
-						scn->pickedShape = 0;
+					scn->Curentcamera = (scn->Curentcamera + 1) % 3;
 						break;
 				case GLFW_KEY_0:
 					scn->pickedShape = 1;
