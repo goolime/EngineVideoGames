@@ -88,10 +88,11 @@ void Game::Init()
 	//myTranslate(glm::vec3(0, 0, -20), 0);
 
 	
-
+	//TODO add all obj 
 	
 	reader = new CSVReader("csvMap1.csv");
 	createshapes(reader, apple, Octahedron);
+	//add levels only after adding other shapes
 	createshapes(reader, lvl1, Cube);
 	createshapes(reader, lvl2, Cube);
 	//walls
@@ -118,8 +119,21 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 		int p = 0;
 		switch (type)
 		{
-		case ramp:
+		case rampS:
+			// TODO: add ramp
+			break;
+		case rampN:
+			// TODO: add ramp
+			break;
+		case rampW:
+			// TODO: add ramp
+			break;
+		case rampE:
+			// TODO: add ramp
+			break;
 		case wall:
+			// TODO: add wall
+			break;
 		case lvl0:
 		case lvl1:
 		case lvl2:
@@ -128,7 +142,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
 			addShape(shapetype, -1, TRIANGLES);
 			pickedShape = p;	
-			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 - 1);
+			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 - 1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
 			shapeTransformation(xGlobalTranslate,	2*o.postions.x+o.postions.z);
 			shapeTransformation(zGlobalTranslate, 2*o.postions.y+o.postions.w);
 			shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
@@ -157,10 +171,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			}
 
 			break;
-		case Gate:
-			break;
-		case snake:
-		case snakebody:
+		case goal:
 			break;
 		default:
 			break;
@@ -342,25 +353,59 @@ void Game::Motion()
 }
 
 void Game:: checkCollsion() {
+	//if (mySnake->Head.me->checkColsion2(Sgoal)) {
+	//	// TODO: end game
+	//}
+	
 	for each (Shape* a in Sapples)
 	{
-		if (mySnake->Head.me->checkColsion2(a)) {
-			std::cout << "hit" << std::endl;
-			if (!(mySnake->canColiod & ramp))
+		if (a->Is2Render() && mySnake->Head.me->checkColsion2(a)) {		
+			if (!(mySnake->canColiod & apple))
 			{
-				mySnake->canColiod += ramp;
-				//mySnake->zangle += -35;
-				//shapeTransformation(zLocalRotate, -35);
-				mySnake->needLvL++;
+				std::cout << "hit - apple" << std::endl;
+				
+				// TODO: add point to score and point sound
+
+				a->Hide();
 			}
 		}
 	}
+
+	for each (Shape* a in SMines)
+	{
+		if (a->Is2Render() && mySnake->Head.me->checkColsion2(a)) {
+			if (!(mySnake->canColiod & mine))
+			{
+				std::cout << "hit - mine" << std::endl;
+
+				// TODO: zero the score or lose the game and mine sound
+
+				a->Hide();
+			}
+		}
+	}
+
+
+
 	for each (Shape* r in Sramps)
 	{
-		if (!(mySnake->canColiod & ramp))
-		{
-			mySnake->canColiod += ramp;
+		if (r->Is2Render() && mySnake->Head.me->checkColsion2(r)) {
+			std::cout << "hit - ramp" << std::endl;
+			if (!(mySnake->canColiod & rampS))
+			{
+				mySnake->canColiod += rampS;
 
+				// TODO: calc next level
+
+				mySnake->needLvL++;
+				//mySnake->neddLvL--;
+			}
+		}
+	}
+	for each (Shape* r in Swalls)
+	{
+		if (mySnake->Head.me->checkColsion2(r)) {
+			// TODO : lose the game
 		}
 	}
 
