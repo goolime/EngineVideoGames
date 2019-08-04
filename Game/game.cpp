@@ -354,7 +354,7 @@ void Game::Motion()
 
 void Game:: checkCollsion() {
 	//if (mySnake->Head.me->checkColsion2(Sgoal)) {
-	//	// TODO: end game
+	//	// TODO: end game win
 	//}
 	
 	for each (Shape* a in Sapples)
@@ -364,8 +364,9 @@ void Game:: checkCollsion() {
 			{
 				std::cout << "hit - apple" << std::endl;
 				
-				// TODO: add point to score and point sound
-
+				score++;
+				std::cout << "your scoure is " << score << std::endl;
+				mySnake->speed = (score / 5) + BASIC_SPEED;
 				a->Hide();
 			}
 		}
@@ -378,7 +379,13 @@ void Game:: checkCollsion() {
 			{
 				std::cout << "hit - mine" << std::endl;
 
-				// TODO: zero the score or lose the game and mine sound
+				if (score == 0) {
+					//TODO: end game lose
+				}
+				else {
+					score = 0;
+					std::cout << "your scoure is 0" << std::endl;
+				}
 
 				a->Hide();
 			}
@@ -405,11 +412,11 @@ void Game:: checkCollsion() {
 	for each (Shape* r in Swalls)
 	{
 		if (mySnake->Head.me->checkColsion2(r)) {
-			// TODO : lose the game
+			// TODO : end game lose
 		}
 	}
 
-
+	
 }
 
 void Game::MoveSnake( int type, float amount) {

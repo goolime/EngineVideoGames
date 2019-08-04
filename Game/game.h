@@ -33,6 +33,7 @@ private:
 	void setCamera();
 	void createshapes(CSVReader* reader, int type, int shapetype);
 	Snake* mySnake;
+	int score = 0;
 
 public:
 	int Curentcamera = 0;
