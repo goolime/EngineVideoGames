@@ -1,4 +1,5 @@
 #include "scene.h"
+#define BASIC_SPEED 3
 
 struct SnakePart
 {
@@ -15,7 +16,7 @@ class Snake
 private:
 
 	void lvlChange(Scene* myGame);
-	int speed=1;
+	//int speed=1;
 	int a = 0;
 
 	SnakePart* Tail = NULL;
@@ -31,6 +32,7 @@ public:
 	Snake(Shape* Head,int l);
 	void addPart(Shape* part,int l);
 	void move(Scene* myGame);
+	int speed = BASIC_SPEED;
 
 
 };

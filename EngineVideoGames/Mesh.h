@@ -112,6 +112,8 @@ public:
 
 IndexedModel CubeTriangles();
 
+IndexedModel MinsaraTriangles();
+
 IndexedModel AxisGenerator();
 
 IndexedModel TethrahedronGenerator();

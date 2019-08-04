@@ -9,19 +9,22 @@
 
 enum objecscode
 {
-	snake = 1,
-	snakebody = 2,
-	ramp = 4,
-	wall = 8,
-	apple = 16,
-	Gate = 32,
-	lvl0 = 128,
-	lvl1 = 256,
-	lvl2 = 512,
-	lvl3 = 1024,
+	goal = 1,
+	apple = 2,
+	mine = 4,
+	rampN = 8,
+	rampW = 16,
+	rampS = 32,
+	rampE = 64,
+	wall = 128,
+	lvl0 = 256,
+	lvl1 = 512,
+	lvl2 = 1024,
+	lvl3 = 2048,
 };
 struct obj
 {
+	// pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
 	glm::vec4 postions;
 	int lvl;
 	int type;

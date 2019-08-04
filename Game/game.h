@@ -22,7 +22,9 @@ class Game : public Scene
 private:
 	CSVReader* reader= NULL;
 	//end project
+	Shape* Sgoal;
 	std::vector<Shape*> Sapples;
+	std::vector<Shape*> SMines;	
 	std::vector<Shape*> Sramps;
 	std::vector<Shape*> Swalls;
 	Shape* SGate;
@@ -31,6 +33,7 @@ private:
 	void setCamera();
 	void createshapes(CSVReader* reader, int type, int shapetype);
 	Snake* mySnake;
+	int score = 0;
 
 public:
 	int Curentcamera = 0;
