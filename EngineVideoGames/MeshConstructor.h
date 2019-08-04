@@ -65,7 +65,7 @@ public:
 		Tethrahedron,
 		BezierLine,
 		BezierSurface,
-		Minsara
+		Minsara = 8
 	};
 	MeshConstructor(const int type);//natai done
 	MeshConstructor(Bezier1D *curve, bool isSurface, unsigned int resT, unsigned int resS);//natai done 

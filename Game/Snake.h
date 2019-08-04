@@ -1,5 +1,5 @@
 #include "scene.h"
-#define BASIC_SPEED 3
+#define BASIC_SPEED 5
 
 struct SnakePart
 {

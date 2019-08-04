@@ -37,8 +37,8 @@ std::vector<obj> CSVReader::getallobjects(int type) {
 		{
 			if ((data[y][x] & type) != 0) {
 				obj newobj;
-				newobj.lvl = 0;
-					for (unsigned int d = data[y][x] / lvl0; d > 0 ; d>>1)
+				newobj.lvl = -1;
+					for (unsigned int d = data[y][x] / lvl0; d > 0 ; d = d>>1)
 					{
 						newobj.lvl++;
 					}

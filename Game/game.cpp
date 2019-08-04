@@ -105,6 +105,10 @@ void Game::Init()
 	
 	reader = new CSVReader("csvMap2.csv");
 	//createshapes(reader, apple, Octahedron);
+	createshapes(reader, rampN, Minsara);
+	createshapes(reader, rampS, Minsara);
+	createshapes(reader, rampW, Minsara);
+	createshapes(reader, rampE, Minsara);
 	//add levels only after adding other shapes
 	createshapes(reader, lvl1, Cube);
 	createshapes(reader, lvl2, Cube);
@@ -129,20 +133,37 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 	std::vector<obj> myobj = reader->getallobjects(type);
 	for each (obj o in myobj)
 	{
+		int turn = 0;
 		int p = 0;
 		switch (type)
 		{
-		case rampS:
-			// TODO: add ramp
-			break;
-		case rampN:
-			// TODO: add ramp
-			break;
 		case rampW:
-			// TODO: add ramp
-			break;
+			turn++;
+		case rampN:
+			turn++;
 		case rampE:
-			// TODO: add ramp
+			turn++;
+		case rampS:
+			p = shapes.size();
+			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
+			addShape(shapetype, -1, TRIANGLES);
+			pickedShape = p;
+			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4+1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
+			shapeTransformation(xGlobalTranslate, 2 * o.postions.x + o.postions.z - 2);
+			shapeTransformation(zGlobalTranslate, 2 * o.postions.y + o.postions.w);
+			if (type == rampE || type == rampW)
+			{
+				shapeTransformation(xScale, o.postions.w + 1); // +1 for perfect feat
+				shapeTransformation(zScale, o.postions.z); 
+			}
+			else 
+			{
+				shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
+				shapeTransformation(zScale, o.postions.w + 1); // +1 for perfect feat
+			}
+			shapeTransformation(yLocalRotate, 90*turn);
+
+			shapes[pickedShape]->SetTexture(plane);
 			break;
 		case wall:
 			// TODO: add wall
@@ -156,10 +177,10 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			addShape(shapetype, -1, TRIANGLES);
 			pickedShape = p;	
 			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 - 1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
-			shapeTransformation(xGlobalTranslate,	2*o.postions.x+o.postions.z);
+			shapeTransformation(xGlobalTranslate,	2*o.postions.x+o.postions.z -2);
 			shapeTransformation(zGlobalTranslate, 2*o.postions.y+o.postions.w);
 			shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
-			shapeTransformation(zScale, o.postions.w);
+			shapeTransformation(zScale, o.postions.w+1); // +1 for perfect feat
 
 			shapes[pickedShape]->SetTexture(bricks);
 			
@@ -485,7 +506,7 @@ void Game::creatWalls() {
 	shapes[pickedShape]->SetTexture(bricks);
 	shapeTransformation(zLocalTranslate, (float)reader->z);
 	shapeTransformation(xLocalTranslate, 2 * (float)reader->x);
-	shapeTransformation(xLocalTranslate, -1);
+	shapeTransformation(xLocalTranslate, -3);
 	//shapeTransformation(xScale, reader->x);
 	shapeTransformation(zScale, reader->z);
 	shapeTransformation(yLocalTranslate, 4);
@@ -497,7 +518,7 @@ void Game::creatWalls() {
 	shapes[pickedShape]->SetTexture(bricks);
 	shapeTransformation(zLocalTranslate, 2 * (float)reader->z);
 	shapeTransformation(xLocalTranslate, (float)reader->x);
-	shapeTransformation(zLocalTranslate, -1);
+	shapeTransformation(zLocalTranslate, -3);
 	shapeTransformation(yLocalTranslate, 4);
 	shapeTransformation(yLocalTranslate, 0.4);
 	shapeTransformation(xScale, reader->x);
