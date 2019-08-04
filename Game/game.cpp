@@ -67,18 +67,26 @@ void Game::Init()
 		pickedShape = shapes.size();
 		addShape(BezierSurface, -1, TRIANGLES);
 		shapes[pickedShape]->SetTexture(plane);
+		shapes[pickedShape]->shaderID = 3;
 		shapeTransformation(yGlobalTranslate, 1);
 		//shapeTransformation(xGlobalTranslate, 3 );
 		mySnake = new Snake(shapes.at(pickedShape), pickedShape);
-
-		curve->MoveControlPoint(0, 0, false, glm::vec4(-1.5, 1, 0, 0));
-		for (int i = 1; i < 4; i++) {
+		shapes[pickedShape]->name = "snake head";
+		//curve->MoveControlPoint(0, 0, false, glm::vec4(-1.5, 1, 0, 0));
+		for (int i = 0; i < 3; i++) {
+			curve->MoveControlPoint(0, 0, false, glm::vec4(3+3 *i - 1.5 , 1, 0, 0));
+			curve->MoveControlPoint(0, 1, false, glm::vec4(4+3 *i - 1.5, 2, 0, 0));
+			curve->MoveControlPoint(0, 2, false, glm::vec4(5+3 *i - 1.5, 0.5, 0, 0));
+			curve->MoveControlPoint(0, 3, false, glm::vec4(6+3 *i - 1.5, 1, 0, 0));
+			shapes[pickedShape]->shaderID = 3;
 			pickedShape = shapes.size();
 			addShape(BezierSurface, -1, TRIANGLES);
 			shapes[pickedShape]->SetTexture(plane);
-			shapeTransformation(xGlobalTranslate, 3 * i);
+		//	shapeTransformation(xGlobalTranslate, 3 * i);
 			shapeTransformation(yGlobalTranslate, 1);
 			mySnake->addPart(shapes.at(pickedShape), pickedShape);
+
+			shapes[pickedShape]->name = "snake body";
 		}
 
 	}
@@ -95,15 +103,15 @@ void Game::Init()
 	createshapes(reader, lvl1, Cube);
 	createshapes(reader, lvl2, Cube);
 	//walls
-	creatWalls();
+	//creatWalls();
 	
 
 
 
-	pickedShape = 1;
-	shapeTransformation(yLocalRotate, 90);
-	shapeTransformation(xGlobalTranslate, 20);
-	shapeTransformation(zGlobalTranslate, 10);
+	//pickedShape = 1;
+	//shapeTransformation(yLocalRotate, 90);
+	//shapeTransformation(xGlobalTranslate, 20);
+	//shapeTransformation(zGlobalTranslate, 10);
 
 	//updateBoundings(1, 4);
 
@@ -241,9 +249,9 @@ void Game::Update(const glm::mat4 &MVP, const glm::mat4 &myNormal, const glm::ma
 	glm::mat3x4 tranlation(glm::transpose(myNormal));//glm::transpose(shapes.at(pickedShape)->makeTrans()));
 	glm::dualquat myquat(glm::dualquat_cast(tranlation));
 
-
+	
 	Shape* shape = shapes.at(pickedShape);
-	Shader *s = shaders[shaderIndx];
+	Shader *s = shaders[3];
 	//glm::vec3 wight = s.get
 	int r = ((pickedShape + 1) & 0x000000FF) >> 0;
 	int g = ((pickedShape + 1) & 0x0000FF00) >> 8;

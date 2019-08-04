@@ -11,12 +11,14 @@ class Shape : public MovableGLM
 private:
 
 	int texID;
-	int shaderID;
+
 	bool isCopy;
 	unsigned int mode;
 	bool toRender;
 
 public:
+	int shaderID;
+	std::string name = "";
 	int boundingboxLoction = -1;
 
 	std::pair<BoundingBox*, BoundingBox*> checkColsion(Shape* other);

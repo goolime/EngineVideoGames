@@ -9,10 +9,10 @@ Bezier1D::Bezier1D(void)
 
 	glm::mat4 Model = glm::mat4(1.0);
 
-	glm::vec4 Position0 = glm::vec4(-1.5, 0.0, 0.0, 0.0);
-	glm::vec4 Position1 = glm::vec4(-0.5, 1.0, 0.0, 0.0);
-	glm::vec4 Position2 = glm::vec4(0.5, 1.0, 0.0, 0.0);
-	glm::vec4 Position3 = glm::vec4(1.5, 1.0, 0.0, 0.0);
+	glm::vec4 Position0 = glm::vec4(0 - 1.5, 0.0, 0.0, 0.0);
+	glm::vec4 Position1 = glm::vec4(1 - 1.5, 1.0, 0.0, 0.0);
+	glm::vec4 Position2 = glm::vec4(2 - 1.5, 1.0, 0.0, 0.0);
+	glm::vec4 Position3 = glm::vec4(3 - 1.5, 1.0, 0.0, 0.0);
 
 
 	Model[0] = Position0;

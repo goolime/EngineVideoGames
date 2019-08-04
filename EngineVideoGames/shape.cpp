@@ -60,7 +60,7 @@ void Shape::Draw( const std::vector<Shader*> shaders, const std::vector<Texture*
 	if(isPicking)
 		shaders[0]->Bind();
 	else
-		shaders[shaderID]->Bind();
+		shaders[shaderID]->Bind(); // when we are head needs to be 3?
 	mesh->Bind();
 	/*if(isCopy)
 		glDrawArrays(GL_TRIANGLES, 0, indicesNum);
