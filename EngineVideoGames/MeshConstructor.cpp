@@ -219,7 +219,7 @@ bool B_Node::isColiding2(glm::mat4 myMat, B_Node* other, glm::mat4 otherMat, int
 	if (right != NULL & other->left != NULL)
 		option3 = right->isColiding2(myMat,other->left,otherMat,lvl+1,b1scale,b2scale);
 	if (right != NULL & other->right != NULL)
-		option3 = right->isColiding2(myMat,other->right,otherMat,lvl+1,b1scale,b2scale);
+		option4 = right->isColiding2(myMat,other->right,otherMat,lvl+1,b1scale,b2scale);
 
 	if (!option1 & !option2 & !option3 & !option4)
 		return false;

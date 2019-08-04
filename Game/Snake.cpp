@@ -126,7 +126,7 @@ void Snake::lvlChange(Scene* myGame) {
 
 	if ((lvldiff > 0 && popPostion.y <= myPos.y+0.01)|( lvldiff < 0 && popPostion.y >= myPos.y-0.01))
 	{
-		//canColiod =0;
+		canColiod -= 32; //ramps 
 		myLvL = needLvL;
 		myGame->shapeTransformation(myGame->zLocalRotate, -zangle);
 		zangle = 0;

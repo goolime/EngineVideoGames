@@ -109,6 +109,8 @@ void Game::Init()
 	createshapes(reader, rampS, Minsara);
 	createshapes(reader, rampW, Minsara);
 	createshapes(reader, rampE, Minsara);
+	createshapes(reader, wall, Cube);
+	createshapes(reader, apple, Octahedron);
 	//add levels only after adding other shapes
 	createshapes(reader, lvl1, Cube);
 	createshapes(reader, lvl2, Cube);
@@ -144,29 +146,65 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 		case rampE:
 			turn++;
 		case rampS:
-			p = shapes.size();
+		{	p = shapes.size();
 			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
 			addShape(shapetype, -1, TRIANGLES);
 			pickedShape = p;
-			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4+1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
+			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 + 1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
 			shapeTransformation(xGlobalTranslate, 2 * o.postions.x + o.postions.z - 2);
 			shapeTransformation(zGlobalTranslate, 2 * o.postions.y + o.postions.w);
 			if (type == rampE || type == rampW)
 			{
 				shapeTransformation(xScale, o.postions.w + 1); // +1 for perfect feat
-				shapeTransformation(zScale, o.postions.z); 
+				shapeTransformation(zScale, o.postions.z);
 			}
-			else 
+			else
 			{
 				shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
 				shapeTransformation(zScale, o.postions.w + 1); // +1 for perfect feat
 			}
-			shapeTransformation(yLocalRotate, 90*turn);
+			shapeTransformation(yLocalRotate, 90 * turn);
+
+		}
+			// collstion ------
+			p = shapes.size();
+			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
+			addShape(Cube, -1, TRIANGLES);
+			pickedShape = p;
+			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 + 1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
+			shapeTransformation(xGlobalTranslate, 2 * o.postions.x + o.postions.z - 2);
+			shapeTransformation(zGlobalTranslate, 2 * o.postions.y + o.postions.w);
+			if (type == rampE || type == rampW)
+			{
+				shapeTransformation(xScale, o.postions.w + 1); // +1 for perfect feat
+				shapeTransformation(zScale, o.postions.z);
+			}
+			else
+			{
+				shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
+				shapeTransformation(zScale, o.postions.w + 1); // +1 for perfect feat
+			}
+			shapeTransformation(yLocalRotate, 90 * turn);
 
 			shapes[pickedShape]->SetTexture(plane);
+			Sramps.push_back(shapes[pickedShape]);
+			shapes[pickedShape]->Hide();
 			break;
 		case wall:
-			// TODO: add wall
+
+			p = shapes.size();
+			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
+			addShape(shapetype, -1, TRIANGLES);
+			pickedShape = p;
+			shapeTransformation(yGlobalTranslate, 3);
+			shapeTransformation(xGlobalTranslate, 2 * o.postions.x + o.postions.z - 2);
+			shapeTransformation(zGlobalTranslate, 2 * o.postions.y + o.postions.w);
+			shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
+			shapeTransformation(yScale, 6); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
+			shapeTransformation(zScale, o.postions.w + 1); // +1 for perfect feat
+
+			shapes[pickedShape]->SetTexture(-1);
+			Swalls.push_back(shapes[pickedShape]);
 			break;
 		case lvl0:
 		case lvl1:
@@ -183,28 +221,29 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			shapeTransformation(zScale, o.postions.w+1); // +1 for perfect feat
 
 			shapes[pickedShape]->SetTexture(bricks);
-			
+
+
 			break;
 		case apple:
 
-			for (int i = 0; i < o.postions.z; i++)
-			{
-				for (int j = 0; j < o.postions.w; j++)
-				{
+			//for (int i = 0; i < o.postions.z; i++)
+			//{
+			//	for (int j = 0; j < o.postions.w; j++)
+			//	{
 					 p = shapes.size();
 					//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
 					addShape(shapetype, -1, TRIANGLES);
 					pickedShape = p;
 
 					shapeTransformation(yLocalTranslate, 2*o.lvl + 1);
-					shapeTransformation(xLocalTranslate, 2*(o.postions.x + i)+1);
-					shapeTransformation(zLocalTranslate, 2*(o.postions.y + j)+1);
+					shapeTransformation(xLocalTranslate, 2*(o.postions.x )+1);
+					shapeTransformation(zLocalTranslate, 2*(o.postions.y )+1);
 					shapeTransformation(xScale, 0.25);
 					shapeTransformation(zScale, 0.25);
 					shapeTransformation(yScale, 0.25);
 					Sapples.push_back(shapes[pickedShape]);
-				}
-			}
+			//	}
+			//}
 
 			break;
 		case goal:
@@ -212,7 +251,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 		default:
 			break;
 		}
-
+		
 		//shapes.at(pickedShape).
 		//change color
 	}
@@ -435,7 +474,8 @@ void Game:: checkCollsion() {
 
 	for each (Shape* r in Sramps)
 	{
-		if (r->Is2Render() && mySnake->Head.me->checkColsion2(r)) {
+		//if (r->Is2Render() && mySnake->Head.me->checkColsion2(r)) {
+		if (mySnake->Head.me->checkColsion2(r)) {
 			std::cout << "hit - ramp" << std::endl;
 			if (!(mySnake->canColiod & rampS))
 			{
