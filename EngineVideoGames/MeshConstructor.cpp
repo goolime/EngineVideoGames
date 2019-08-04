@@ -258,6 +258,10 @@ MeshConstructor::MeshConstructor(const int type)
 		myModle = TethrahedronGenerator();
 		InitMesh(myModle);
 		break;
+	case Minsara:
+		myModle = MinsaraTriangles();
+		InitMesh(myModle);
+		break;
 	default:
 		break;
 

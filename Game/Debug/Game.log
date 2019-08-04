@@ -1,55 +1,55 @@
 ﻿  game.cpp
 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_math_defines.h(22): warning C4005: 'M_PI': macro redefinition
   e:\enginevideogames\enginevideogames\eulerangles.h(4): note: see previous definition of 'M_PI'
-e:\enginevideogames\game\game.cpp(79): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(145): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(163): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(201): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(206): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(149): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(167): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(205): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 e:\enginevideogames\game\game.cpp(210): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(298): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-e:\enginevideogames\game\game.cpp(300): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+e:\enginevideogames\game\game.cpp(214): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 e:\enginevideogames\game\game.cpp(302): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-e:\enginevideogames\game\game.cpp(305): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+e:\enginevideogames\game\game.cpp(304): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-e:\enginevideogames\game\game.cpp(307): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+e:\enginevideogames\game\game.cpp(306): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-e:\enginevideogames\game\game.cpp(430): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(431): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(432): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(309): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+e:\enginevideogames\game\game.cpp(311): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
 e:\enginevideogames\game\game.cpp(441): warning C4305: 'argument': truncation from 'double' to 'float'
 e:\enginevideogames\game\game.cpp(442): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(443): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(452): warning C4305: 'argument': truncation from 'double' to 'float'
 e:\enginevideogames\game\game.cpp(453): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(455): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(465): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(467): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(477): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(478): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\enginevideogames\game\game.cpp(489): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(490): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(491): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(498): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(499): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(464): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(466): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(476): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\enginevideogames\game\game.cpp(478): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(488): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(489): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 e:\enginevideogames\game\game.cpp(500): warning C4305: 'argument': truncation from 'double' to 'float'
-e:\enginevideogames\game\game.cpp(508): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(501): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(502): warning C4305: 'argument': truncation from 'double' to 'float'
 e:\enginevideogames\game\game.cpp(509): warning C4305: 'argument': truncation from 'double' to 'float'
 e:\enginevideogames\game\game.cpp(510): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(511): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(519): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(520): warning C4305: 'argument': truncation from 'double' to 'float'
+e:\enginevideogames\game\game.cpp(521): warning C4305: 'argument': truncation from 'double' to 'float'
   Game.vcxproj -> E:\EngineVideoGames\Debug\Game.exe

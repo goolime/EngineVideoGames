@@ -28,6 +28,7 @@ public:
 		BezierSurface,
 		LineCopy,
 		MeshCopy,
+		Minsara
 	};
 	Scene();
 	Scene(glm::vec3 position,float angle,float hwRelation,float near, float far);

@@ -2,6 +2,8 @@
 #include <math.h>
 #include <iostream>
 #include <glm/gtx/dual_quaternion.hpp>
+#include <Windows.h>
+#include <mmsystem.h>
 
 
 static void printMat(const glm::mat4 mat)
@@ -18,7 +20,7 @@ static void printMat(const glm::mat4 mat)
 
 Game::Game() :Scene() { curve = 0; }
 
-Game::Game(glm::vec3 position, float angle, float hwRelation, float near, float far) : Scene(position, angle, hwRelation, near, far)
+Game::Game(glm::vec3 position, float angle, float hwRelation, float dnear, float dfar) : Scene(position, angle, hwRelation, dnear, dfar)
 {
 	curve = new Bezier1D();
 }
@@ -39,6 +41,8 @@ void Game::addShape(int type, int parent, unsigned int mode)
 
 void Game::Init()
 {
+
+	
 	//textures
 	this->AddTexture("../res/textures/box0.bmp");
 	this->AddTexture("../res/textures/bricks.jpg");
@@ -355,6 +359,7 @@ void Game::Motion()
 void Game:: checkCollsion() {
 	//if (mySnake->Head.me->checkColsion2(Sgoal)) {
 	//	// TODO: end game win
+	//	PlaySound(TEXT("../res/sound/win.wav"), NULL, SND_ASYNC);
 	//}
 	
 	for each (Shape* a in Sapples)
@@ -363,7 +368,7 @@ void Game:: checkCollsion() {
 			if (!(mySnake->canColiod & apple))
 			{
 				std::cout << "hit - apple" << std::endl;
-				
+				PlaySound(TEXT("../res/sound/apple.wav"), NULL, SND_ASYNC);
 				score++;
 				std::cout << "your scoure is " << score << std::endl;
 				mySnake->speed = (score / 5) + BASIC_SPEED;
@@ -378,7 +383,7 @@ void Game:: checkCollsion() {
 			if (!(mySnake->canColiod & mine))
 			{
 				std::cout << "hit - mine" << std::endl;
-
+				PlaySound(TEXT("../res/sound/mine.wav"), NULL, SND_ASYNC);
 				if (score == 0) {
 					//TODO: end game lose
 				}
@@ -401,7 +406,7 @@ void Game:: checkCollsion() {
 			if (!(mySnake->canColiod & rampS))
 			{
 				mySnake->canColiod += rampS;
-
+				PlaySound(TEXT("../res/sound/water1.wav"), NULL, SND_ASYNC);
 				// TODO: calc next level
 
 				mySnake->needLvL++;
