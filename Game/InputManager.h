@@ -34,11 +34,15 @@
 					glfwSetWindowShouldClose(window,GLFW_TRUE);
 				break;
 				case GLFW_KEY_SPACE:
-					scn->HideShape(0);
-					if(scn->IsActive())
-						scn->Deactivate();
-					else
-						scn->Deactivate();
+					//scn->HideShape(0);
+					//if(scn->IsActive())
+					//	scn->Deactivate();
+					//else
+					//	scn->Deactivate();
+					if(scn->canmove)
+						scn->canmove = false;
+					else 
+						scn->canmove = true;
 				break;
 								case GLFW_KEY_RIGHT:
 					//scn->shapeTransformation(scn->zGlobalRotate,-20.1f);

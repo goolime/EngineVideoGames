@@ -36,6 +36,7 @@ private:
 	int score = 0;
 
 public:
+	bool canmove = true;
 	int Curentcamera = 0;
 	//ass2
 	void checkCollsion();

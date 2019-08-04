@@ -65,6 +65,7 @@ void Game::Init()
 	//shapeTransformation(xScale, 0.10);
 	//shapeTransformation(zScale, 0.10);
 
+
 	
 	//snake body
 	{
@@ -102,21 +103,21 @@ void Game::Init()
 	
 	//TODO add all obj 
 	
-	reader = new CSVReader("csvMap1.csv");
-	createshapes(reader, apple, Octahedron);
+	reader = new CSVReader("csvMap2.csv");
+	//createshapes(reader, apple, Octahedron);
 	//add levels only after adding other shapes
 	createshapes(reader, lvl1, Cube);
 	createshapes(reader, lvl2, Cube);
+	createshapes(reader, lvl3, Cube);
 	//walls
-	//creatWalls();
+	creatWalls();
 	
 
 
-
-	//pickedShape = 1;
-	//shapeTransformation(yLocalRotate, 90);
-	//shapeTransformation(xGlobalTranslate, 20);
-	//shapeTransformation(zGlobalTranslate, 10);
+	pickedShape = 1;
+	shapeTransformation(xGlobalTranslate, 40);
+	shapeTransformation(zGlobalTranslate, 10);
+	shapeTransformation(yLocalRotate, 90);
 
 	//updateBoundings(1, 4);
 
@@ -159,6 +160,8 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			shapeTransformation(zGlobalTranslate, 2*o.postions.y+o.postions.w);
 			shapeTransformation(xScale, o.postions.z); //pos.x = startx \ pos.y = startz\ pos.z = sizex\ pos.w = sizez 
 			shapeTransformation(zScale, o.postions.w);
+
+			shapes[pickedShape]->SetTexture(bricks);
 			
 			break;
 		case apple:
@@ -194,6 +197,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 	}
 	//cameras[0]->Update();
 	pickedShape = -1;
+
 }
 
 void Game::CreatBoundingBox(int shape_num)
@@ -356,8 +360,9 @@ void Game::Motion()
 		//shapeTransformation(xLocalTranslate, -0.005);
 		//shapeTransformation(xLocalTranslate, -0.001);
 		//shapeTransformation(yLocalRotate, 0.1);
-		cameras[0]->Update(mySnake->Head.me,shapes[Camrasstart + Curentcamera],glm::vec3(0,1.5,0),glm::vec3(0,0,0));
-		mySnake->move(this);
+		cameras[0]->Update(mySnake->Head.me,shapes[Camrasstart + Curentcamera],glm::vec3(0,1,0),glm::vec3(0,0,0));
+		if(canmove)
+			mySnake->move(this);
 		checkCollsion();
 
 	}
@@ -504,21 +509,23 @@ void Game::setCamera() {
 	pickedShape = shapes.size();
 	Camrasstart = pickedShape;
 	addShape(Cube, -1, LINES);
-	shapeTransformation(xLocalTranslate, 2);
+	shapeTransformation(xLocalTranslate, 2.4);
 	shapeTransformation(yLocalTranslate, 2);
 	shapeTransformation(yScale, 0.010);
 	shapeTransformation(xScale, 0.010);
 	shapeTransformation(zScale, 0.010);
 	chainParents.at(pickedShape) = 1;
+	shapes[pickedShape]->Hide();
 
 	pickedShape = shapes.size();
 	addShape(Cube, -1, LINES);
-	shapeTransformation(xLocalTranslate, 1);
+	shapeTransformation(xLocalTranslate, 8);
 	shapeTransformation(yLocalTranslate, 30);
 	shapeTransformation(yScale, 0.010);
 	shapeTransformation(xScale, 0.010);
 	shapeTransformation(zScale, 0.010);
 	chainParents.at(pickedShape) = 1;
+	shapes[pickedShape]->Hide();
 
 	pickedShape = shapes.size();
 	addShape(Cube, -1, LINES);
@@ -529,6 +536,7 @@ void Game::setCamera() {
 	shapeTransformation(xScale, 0.010);
 	shapeTransformation(zScale, 0.010);
 	chainParents.at(pickedShape) = 1;
+	shapes[pickedShape]->Hide();
 
 
 

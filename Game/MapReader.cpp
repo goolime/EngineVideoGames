@@ -37,7 +37,13 @@ std::vector<obj> CSVReader::getallobjects(int type) {
 		{
 			if ((data[y][x] & type) != 0) {
 				obj newobj;
-				newobj.lvl = data[y][x] / (2*lvl0-1);
+				newobj.lvl = 0;
+					for (unsigned int d = data[y][x] / lvl0; d > 0 ; d>>1)
+					{
+						newobj.lvl++;
+					}
+				// = / (2*lvl0-1);//needs to be log 2 but im just going to do it in a if
+
 				newobj.postions = getobject(type, glm::vec2(x, y));
 				newobj.type = type;
 				output.push_back(newobj);
