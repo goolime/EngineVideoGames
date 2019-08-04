@@ -32,6 +32,7 @@ private:
 	void creatWalls();
 	void setCamera();
 	void createshapes(CSVReader* reader, int type, int shapetype);
+	void gameend(bool win);
 	Snake* mySnake;
 	int score = 0;
 
