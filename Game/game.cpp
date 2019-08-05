@@ -104,13 +104,15 @@ void Game::Init()
 	//TODO add all obj 
 
 	reader = new CSVReader("csvMap2.csv");
-	//createshapes(reader, apple, Octahedron);
-	//createshapes(reader, rampN, Minsara);
-	//createshapes(reader, rampS, Minsara);
-	//createshapes(reader, rampW, Minsara);
-	//createshapes(reader, rampE, Minsara);
+	createshapes(reader, apple, Octahedron);
+	createshapes(reader, rampN, Minsara);
+	createshapes(reader, rampS, Minsara);
+	createshapes(reader, rampW, Minsara);
+	createshapes(reader, rampE, Minsara);
 	createshapes(reader, wall, Cube);
-	//createshapes(reader, apple, Octahedron);
+	createshapes(reader, apple, Octahedron);
+	createshapes(reader, mine, Octahedron);
+	createshapes(reader, goal, Octahedron);
 	//add levels only after adding other shapes
 	createshapes(reader, lvl1, Cube);
 	createshapes(reader, lvl2, Cube);
@@ -165,7 +167,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 				shapeTransformation(zScale, o.postions.w + 1); // +1 for perfect feat
 			}
 			shapeTransformation(yLocalRotate, 90 * turn);
-			shapes[pickedShape]->Hide();
+
 		}
 		// collstion ------
 		{
@@ -180,7 +182,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 					pickedShape = p;
 					shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 + 1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
 					shapeTransformation(xGlobalTranslate, 2 * o.postions.x + 2*i - 2);
-					shapeTransformation(zGlobalTranslate, 2 * o.postions.y +2*j+ 1);
+					shapeTransformation(zGlobalTranslate, 2 * o.postions.y +2*j);
 					//if (type == rampE || type == rampW)
 					//{
 					//	shapeTransformation(xScale, o.postions.w + 1); // +1 for perfect feat
@@ -194,6 +196,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 
 					shapes[pickedShape]->SetTexture(plane);
 					Sramps.push_back(shapes[pickedShape]);
+					//shapes[pickedShape]->Hide();
 				}
 			}
 		}
@@ -253,6 +256,28 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			shapeTransformation(zScale, 0.25);
 			shapeTransformation(yScale, 0.25);
 			Sapples.push_back(shapes[pickedShape]);
+			//	}
+			//}
+
+			break;
+		case mine:
+
+			//for (int i = 0; i < o.postions.z; i++)
+			//{
+			//	for (int j = 0; j < o.postions.w; j++)
+			//	{
+			p = shapes.size();
+			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
+			addShape(shapetype, -1, TRIANGLES);
+			pickedShape = p;
+
+			shapeTransformation(yLocalTranslate, 2 * o.lvl + 1);
+			shapeTransformation(xLocalTranslate, 2 * (o.postions.x) + 1);
+			shapeTransformation(zLocalTranslate, 2 * (o.postions.y) + 1);
+			shapeTransformation(xScale, 0.25);
+			shapeTransformation(zScale, 0.25);
+			shapeTransformation(yScale, 0.25);
+			SMines.push_back(shapes[pickedShape]);
 			//	}
 			//}
 
@@ -450,61 +475,62 @@ void Game::checkCollsion() {
 	//	PlaySound(TEXT("../res/sound/win.wav"), NULL, SND_ASYNC);
 	//}
 
-	for each (Shape* a in Sapples)
-	{
-		if (a->Is2Render() && mySnake->Head.me->checkColsion2(a)) {
-			if (!(mySnake->canColiod & apple))
-			{
-				std::cout << "hit - apple" << std::endl;
-				PlaySound(TEXT("../res/sound/apple.wav"), NULL, SND_ASYNC);
-				score++;
-				std::cout << "your scoure is " << score << std::endl;
-				mySnake->speed = (score / 5) + BASIC_SPEED;
-				a->Hide();
-			}
-		}
-	}
-
-	for each (Shape* a in SMines)
-	{
-		if (a->Is2Render() && mySnake->Head.me->checkColsion2(a)) {
-			if (!(mySnake->canColiod & mine))
-			{
-				std::cout << "hit - mine" << std::endl;
-				PlaySound(TEXT("../res/sound/mine.wav"), NULL, SND_ASYNC);
-				if (score == 0) {
-					//TODO: end game lose
+	if (!Happle)
+		for each (Shape* a in Sapples)
+		{
+			if (a->Is2Render() && mySnake->Head.me->checkColsion2(a)) {
+				if (!(mySnake->canColiod & apple))
+				{
+					std::cout << "hit - apple" << std::endl;
+					PlaySound(TEXT("../res/sound/apple.wav"), NULL, SND_ASYNC);
+					score++;
+					std::cout << "your scoure is " << score << std::endl;
+					mySnake->speed = (score / 5) + BASIC_SPEED;
+					a->Hide();
 				}
-				else {
-					score = 0;
-					std::cout << "your scoure is 0" << std::endl;
+			}
+		}
+	if (!Hmines)
+		for each (Shape* a in SMines)
+		{
+			if (a->Is2Render() && mySnake->Head.me->checkColsion2(a)) {
+				if (!(mySnake->canColiod & mine))
+				{
+					std::cout << "hit - mine" << std::endl;
+					PlaySound(TEXT("../res/sound/mine.wav"), NULL, SND_ASYNC);
+					if (score == 0) {
+						//TODO: end game lose
+					}
+					else {
+						score = 0;
+						std::cout << "your scoure is 0" << std::endl;
+					}
+
+					a->Hide();
 				}
-
-				a->Hide();
 			}
 		}
-	}
 
 
+	if (!Hramp)
+		for each (Shape* r in Sramps)
+		{
+			//if (r->Is2Render() && mySnake->Head.me->checkColsion2(r)) {
+			if (mySnake->Head.me->checkColsion2(r)) {
+				std::cout << "hit - ramp" << std::endl;
+				if (!(mySnake->canColiod & rampS))
+				{
+					mySnake->canColiod += rampS;
+					PlaySound(TEXT("../res/sound/water1.wav"), NULL, SND_ASYNC);
+					// TODO: calc next level
 
-	for each (Shape* r in Sramps)
-	{
-		//if (r->Is2Render() && mySnake->Head.me->checkColsion2(r)) {
-		if (mySnake->Head.me->checkColsion2(r)) {
-			std::cout << "hit - ramp" << std::endl;
-			if (!(mySnake->canColiod & rampS))
-			{
-				mySnake->canColiod += rampS;
-				PlaySound(TEXT("../res/sound/water1.wav"), NULL, SND_ASYNC);
-				// TODO: calc next level
-
-				mySnake->needLvL++;
-				//mySnake->neddLvL--;
+					mySnake->needLvL++;
+					//mySnake->neddLvL--;
+				}
 			}
 		}
-	}
 
-
+	if (!Hwall)
 		for each (Shape* r in Swalls)
 		{
 			if (mySnake->Head.me->checkColsion2(r)) {
@@ -512,10 +538,97 @@ void Game::checkCollsion() {
 				// TODO : end game lose
 			}
 		}
-	
 
 
 
+
+}
+
+void Game::speed(int s) {
+	mySnake->speed+=s;
+	if (mySnake->speed < 1)
+		mySnake->speed = 1;
+}
+
+
+void Game::hide(int type) {
+	switch (type)
+	{
+	case rampS:
+		if (Hramp)
+		{
+			for each (Shape* r in Sramps)
+			{
+				r->Unhide();
+			}
+			Hramp = false;
+		}
+		else
+		{
+			for each (Shape* r in Sramps)
+			{
+				r->Hide();
+			}
+			Hramp = true;
+		}
+		break;
+	case wall:
+		if (Hwall)
+		{
+			for each (Shape* r in Swalls)
+			{
+				r->Unhide();
+			}
+			Hwall = false;
+		}
+		else
+		{
+			for each (Shape* r in Swalls)
+			{
+				r->Hide();
+			}
+			Hwall = true;
+		}
+		break;
+	case apple:
+		if (Happle)
+		{
+			for each (Shape* r in Sapples)
+			{
+				r->Unhide();
+			}
+			Happle = false;
+		}
+		else
+		{
+			for each (Shape* r in Sapples)
+			{
+				r->Hide();
+			}
+			Happle = true;
+		}
+		break;
+	case mine:
+		if (Hmines)
+		{
+			for each (Shape* r in SMines)
+			{
+				r->Unhide();
+			}
+			Hmines = false;
+		}
+		else
+		{
+			for each (Shape* r in SMines)
+			{
+				r->Hide();
+			}
+			Hmines = true;
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void Game::MoveSnake(int type, float amount) {

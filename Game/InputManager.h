@@ -44,7 +44,7 @@
 					else 
 						scn->canmove = true;
 				break;
-								case GLFW_KEY_RIGHT:
+					case GLFW_KEY_RIGHT:
 					//scn->shapeTransformation(scn->zGlobalRotate,-20.1f);
 					scn->MoveSnake( scn->yLocalRotate, -2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,5.1f);
@@ -57,11 +57,12 @@
 //					cout<< "left: "<<endl;
 					break;
 				case GLFW_KEY_UP:
-					
+					scn->speed(1);
 					//cout<< "up: "<<endl;
 					//scn->MoveSnake(scn->zLocalRotate, 2.0f);
 					break;
 				case GLFW_KEY_DOWN:
+					scn->speed(-1);
 					//scn->MoveSnake(scn->zLocalRotate, -2.0f);
 					//scn->MoveSnake(scn->pickedShape, scn->xGlobalRotate, -5.0f);
 					//scn->shapeTransformation(scn->xGlobalRotate,-5.f);
@@ -70,20 +71,18 @@
 				case GLFW_KEY_O:
 					scn->Curentcamera = (scn->Curentcamera + 1) % 3;
 						break;
-				case GLFW_KEY_0:
-					scn->pickedShape = 1;
-					break;
+
 				case GLFW_KEY_1:
-					scn->pickedShape = 2;
+					scn->hide(wall);
 					break;
 				case GLFW_KEY_2:
-					scn->pickedShape = 3;
+					scn->hide(rampS);
 					break;
 				case GLFW_KEY_3:
-					scn->pickedShape = 4;
+					scn->hide(apple);
 					break;
 				case GLFW_KEY_4:
-					scn->pickedShape = 5;
+					scn->hide(mine);
 					break;
 			default:
 				break;
@@ -99,11 +98,11 @@
 		scn->updatePosition((float)xpos,(float)ypos);
 		if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 		{
-			scn->mouseProccessing(GLFW_MOUSE_BUTTON_RIGHT);
+			//scn->mouseProccessing(GLFW_MOUSE_BUTTON_RIGHT);
 		}
 		else if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 		{
-			scn->mouseProccessing(GLFW_MOUSE_BUTTON_LEFT);
+			//scn->mouseProccessing(GLFW_MOUSE_BUTTON_LEFT);
 		}
 
 	}

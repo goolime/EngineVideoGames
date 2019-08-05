@@ -20,6 +20,10 @@ class Game : public Scene
 
 	Bezier1D *curve;
 private:
+	bool Hramp = false;
+	bool Hwall = false;
+	bool Happle = false;
+	bool Hmines = false;
 	CSVReader* reader= NULL;
 	//end project
 	Shape* Sgoal;
@@ -59,6 +63,8 @@ public:
 
 	//end project
 	void MoveSnake( int type, float amount);
+	void speed(int s);
+	void hide(int type);
 
 	void ControlPointUpdate();
 	void WhenRotate();
