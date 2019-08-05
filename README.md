@@ -82,25 +82,25 @@ the trick to all this is to make speed = 0.04 or so
 that way the movement looks very good
 -----------------------------------------------------------
 camera
-to do the camera i simple set her as chain perant and use this code
-	void Update(Shape* target, Shape* me, glm::vec3 offsetT, glm::vec3 offsetM)
-			this->projection = glm::perspective(fov, relation, near, far)* glm::lookAt(mypos+ offsetM, tpos + offsetT, up);
+to do the camera I simple set her as chain parent and use this code
+    void Update(Shape* target, Shape* me, glm::vec3 offsetT, glm::vec3 offsetM)
+            this->projection = glm::perspective(fov, relation, near, far)* glm::lookAt(mypos+ offsetM, tpos + offsetT, up);
 
 -----------------------------------------------------------
 [problome]
 apple\mines\goal
-have the same shape and color but deffrent texure and size
-
+have the same shape and color but different texture and size
+as you get farther away from 0,0,0 the skinning bug gets worst
 [feature]
-all items have a texure but we did not change the base color
+all items have a texture but we did not change the base color
 some items have sound when hitting
-at the start of the game on map2 you can see the snake being sling shot beacuse we only move its head in the start of the game
-this looks cool and will happen agine if we blink the head of the snake
+at the start of the game on map2 you can see the snake being slingshot because we only move its head at the start of the game
+this looks cool and will happen again if we teleport the head of the snake
 [bugs\feature]
-do to the fact that walls dont work as intended you can float in air if you go to a lvl higher then 1 then fall down
-do not have time to implament a psychic engine - but the snake has a simple value "need lvl" and he will get to that lvl 
+do to the fact that walls don't work as intended you can float in the air if you go to a level higher then 1 then fall down
+do not have time to implement a psychic engine - but the snake has a simple value "need lvl" and he will get to that level 
 -----------------------------------------------------------------
-the hardes part of this project was to find how to add the skinning
+the hardest part of this project was to find how to add the skinning
 I ended up making a new shader and a new draw function 
 1 for skinning shapes
 and 1 for normal shapes
