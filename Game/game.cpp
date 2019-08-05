@@ -511,7 +511,8 @@ void Game::checkCollsion() {
 					PlaySound(TEXT("../res/sound/apple.wav"), NULL, SND_ASYNC);
 					score++;
 					std::cout << "your scoure is " << score << std::endl;
-					mySnake->speed = (score / 5) + BASIC_SPEED;
+					if (score % 3 == 0)
+						mySnake->speed++;
 					a->Hide();
 				}
 			}
