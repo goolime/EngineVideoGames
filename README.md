@@ -74,11 +74,20 @@ so 3D_vector_offset = (0,0,2)
 if part 1 is at a 90-degree angle around Y-axis
 we need part 2 to also be at a 90-degree angle around Y-axis
 so we figure out the angle of part 1 (90) and find the current angle of part2 (let's say 60)
-and then we find that 90 -60 = 30 so we turn part 2 30 degree
+and then we find that 90 -60 = 30 so we turn part2 30*speed degree
 we do this to XYZ
 the hard part is to find this 90\60 degree angle
+
+the trick to all this is to make speed = 0.04 or so
+that way the movement looks very good
+
+
 -----------------------------------------------------------
 [feature]
 all items have a texure but we did not change the base color
-
+some items have sound when hitting
+[bugs\feature]
+do to the fact that walls dont work as intended you can float in air if you go to a lvl higher then 1 then fall down
+do not have time to implament a psychic engine - but the snake has a simple value "need lvl" and he will get to that lvl 
+-----------------------------------------------------------------
 
