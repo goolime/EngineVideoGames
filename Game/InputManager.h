@@ -52,7 +52,7 @@
 					break;
 				case GLFW_KEY_LEFT:
 					//scn->shapeTransformation(scn->zGlobalRotate,20.1f);
-					scn->MoveSnake( scn->yLocalRotate, 2.0f);
+					scn->MoveSnake(scn->yLocalRotate, 2.0f);
 					//scn->shapeTransformation(scn->zLocalRotate,-5.0f);
 //					cout<< "left: "<<endl;
 					break;
@@ -83,6 +83,12 @@
 					break;
 				case GLFW_KEY_4:
 					scn->hide(mine);
+					break;
+				case GLFW_KEY_Y:
+					scn->MoveSnake(scn->zLocalRotate, 2.0f);
+					break;
+				case GLFW_KEY_H:
+					scn->MoveSnake(scn->zLocalRotate, -2.0f);
 					break;
 			default:
 				break;

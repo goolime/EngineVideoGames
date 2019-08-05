@@ -51,6 +51,12 @@ void Game::Init()
 	this->AddTexture("../res/textures/snake.jpg");
 	this->AddTexture("../res/textures/snake1.png");
 
+	this->AddTexture("../res/textures/apple.jpg");
+	this->AddTexture("../res/textures/flor.jpg");
+	this->AddTexture("../res/textures/goal.jpg");
+	this->AddTexture("../res/textures/mine.jpg");
+	this->AddTexture("../res/textures/skin.jpg");
+
 	pickedShape = shapes.size();
 	addShape(Axis, -1, LINES);
 	shapeTransformation(yScale, 10);
@@ -71,7 +77,7 @@ void Game::Init()
 	{
 		pickedShape = shapes.size();
 		addShape(BezierSurface, -1, TRIANGLES);
-		shapes[pickedShape]->SetTexture(plane);
+		shapes[pickedShape]->SetTexture(box0);
 		shapes[pickedShape]->shaderID = 3;
 		shapeTransformation(yGlobalTranslate, 1);
 		//shapeTransformation(xGlobalTranslate, 3 );
@@ -86,7 +92,7 @@ void Game::Init()
 			shapes[pickedShape]->shaderID = 3;
 			pickedShape = shapes.size();
 			addShape(BezierSurface, -1, TRIANGLES);
-			shapes[pickedShape]->SetTexture(plane);
+			shapes[pickedShape]->SetTexture(box0);
 			//	shapeTransformation(xGlobalTranslate, 3 * i);
 			shapeTransformation(yGlobalTranslate, 1);
 			mySnake->addPart(shapes.at(pickedShape), pickedShape);
@@ -101,9 +107,8 @@ void Game::Init()
 	//myTranslate(glm::vec3(0, 0, -20), 0);
 
 
-	//TODO add all obj 
 
-	reader = new CSVReader("csvMap2.csv");
+	reader = new CSVReader("csvMap.csv");
 	createshapes(reader, apple, Octahedron);
 	createshapes(reader, rampN, Minsara);
 	createshapes(reader, rampS, Minsara);
@@ -118,7 +123,7 @@ void Game::Init()
 	createshapes(reader, lvl2, Cube);
 	createshapes(reader, lvl3, Cube);
 	//walls
-	//creatWalls();
+	creatWalls();
 
 
 
@@ -154,7 +159,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			addShape(shapetype, -1, TRIANGLES);
 			pickedShape = p;
 			shapeTransformation(yGlobalTranslate, 2 * o.lvl + 0.4 + 1); // the cube is size 2x2x2 so that is y we place it in pos 2*o.pos
-			shapeTransformation(xGlobalTranslate, 2 * o.postions.x + o.postions.z - 2);
+			shapeTransformation(xGlobalTranslate, 2 * o.postions.x + o.postions.z - 3);
 			shapeTransformation(zGlobalTranslate, 2 * o.postions.y + o.postions.w);
 			if (type == rampE || type == rampW)
 			{
@@ -169,6 +174,8 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			shapeTransformation(yLocalRotate, 90 * turn);
 
 		}
+
+		shapes[pickedShape]->SetTexture(grass);
 		// collstion ------
 		{
 
@@ -217,6 +224,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 					shapes[pickedShape]->SetTexture(-1);
 					Swalls.push_back(shapes[pickedShape]);
 
+					shapes[pickedShape]->SetTexture(plane);
 				}
 			}
 			break;
@@ -256,6 +264,8 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			shapeTransformation(zScale, 0.25);
 			shapeTransformation(yScale, 0.25);
 			Sapples.push_back(shapes[pickedShape]);
+
+			shapes[pickedShape]->SetTexture(tapple);
 			//	}
 			//}
 
@@ -274,16 +284,27 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			shapeTransformation(yLocalTranslate, 2 * o.lvl + 1);
 			shapeTransformation(xLocalTranslate, 2 * (o.postions.x) + 1);
 			shapeTransformation(zLocalTranslate, 2 * (o.postions.y) + 1);
-			shapeTransformation(xScale, 0.25);
-			shapeTransformation(zScale, 0.25);
-			shapeTransformation(yScale, 0.25);
+
 			SMines.push_back(shapes[pickedShape]);
+
+			shapes[pickedShape]->SetTexture(tmine);
 			//	}
 			//}
 
 			break;
 		case goal:
-			break;
+			p = shapes.size();
+			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
+			addShape(shapetype, -1, TRIANGLES);
+			pickedShape = p;
+
+			shapeTransformation(yLocalTranslate, 2 * o.lvl + 1);
+			shapeTransformation(xLocalTranslate, 2 * (o.postions.x) + 1);
+			shapeTransformation(zLocalTranslate, 2 * (o.postions.y) + 1);
+
+			Sgoal = (shapes[pickedShape]);
+			
+			shapes[pickedShape]->SetTexture(gold);
 		default:
 			break;
 		}
@@ -470,10 +491,11 @@ void Game::Motion()
 }
 
 void Game::checkCollsion() {
-	//if (mySnake->Head.me->checkColsion2(Sgoal)) {
-	//	// TODO: end game win
-	//	PlaySound(TEXT("../res/sound/win.wav"), NULL, SND_ASYNC);
-	//}
+	if(Sgoal !=NULL)
+		if (mySnake->Head.me->checkColsion2(Sgoal)) {
+			// TODO: end game win
+			PlaySound(TEXT("../res/sound/win.wav"), NULL, SND_ASYNC);
+		}
 
 	if (!Happle)
 		for each (Shape* a in Sapples)
@@ -522,7 +544,7 @@ void Game::checkCollsion() {
 				{
 					mySnake->canColiod += rampS;
 					PlaySound(TEXT("../res/sound/water1.wav"), NULL, SND_ASYNC);
-					// TODO: calc next level
+					// TODO: calc next level no time
 
 					mySnake->needLvL++;
 					//mySnake->neddLvL--;
@@ -643,7 +665,7 @@ void Game::creatWalls() {
 	//floor
 	pickedShape = shapes.size();
 	addShape(Cube, -1, TRIANGLES);
-	shapes[pickedShape]->SetTexture(grass);
+	shapes[pickedShape]->SetTexture(bricks);
 	shapeTransformation(zLocalTranslate, (float)reader->z);
 	shapeTransformation(xLocalTranslate, (float)reader->x);
 	shapeTransformation(yLocalTranslate, -1 + 0.4);

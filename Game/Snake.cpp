@@ -47,7 +47,7 @@ void Snake::move(Scene* myGame) {
 
 	glm::vec3 myMove = glm::mat3x3(temp->me->makeTransScale()) * unitvector;
 	myGame->shapeTransformation(myGame->xGlobalTranslate, myMove.x);
-	//myGame->shapeTransformation(myGame->yGlobalTranslate, myMove.y);
+//	myGame->shapeTransformation(myGame->yGlobalTranslate, myMove.y);
 	myGame->shapeTransformation(myGame->zGlobalTranslate, myMove.z);
 
 	while (temp->MySon != NULL)

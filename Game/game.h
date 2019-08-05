@@ -6,12 +6,18 @@
 
 enum textureName
 {
-	box0= 0,
-	bricks= 1,
-	grass= 2,
-	plane= 3,
-	snake0= 4,
-	snake1= 5,
+	box0 = 0,
+	bricks = 1,
+	grass = 2,
+	plane = 3,
+	snake0 = 4,
+	snake1 = 5,
+
+	tapple = 6,
+	tfloor = 7,
+	gold = 8,
+	tmine = 9,
+	skin = 10,
 };
 
 class Game : public Scene
