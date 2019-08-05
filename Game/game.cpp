@@ -499,6 +499,9 @@ void Game::checkCollsion() {
 		if (mySnake->Head.me->checkColsion2(Sgoal)) {
 			// TODO: end game win
 			PlaySound(TEXT("../res/sound/win.wav"), NULL, SND_ASYNC);
+			std::cout << "you have won!!!" << std::endl;
+			std::cout << "your score is " << score << std::endl;
+			mySnake->speed = 0;
 		}
 
 	if (!Happle)
@@ -525,7 +528,9 @@ void Game::checkCollsion() {
 					std::cout << "hit - mine" << std::endl;
 					PlaySound(TEXT("../res/sound/mine.wav"), NULL, SND_ASYNC);
 					if (score == 0) {
-						//TODO: end game lose
+						std::cout << "GAME OVER" << std::endl;
+						std::cout << "your score is " << score << std::endl;
+						mySnake->speed = 0;
 					}
 					else {
 						score = 0;
@@ -561,7 +566,9 @@ void Game::checkCollsion() {
 		{
 			if (mySnake->Head.me->checkColsion2(r)) {
 				std::cout << "hit - wall" << std::endl;
-				// TODO : end game lose
+				std::cout << "GAME OVER" << std::endl;
+				std::cout << "your score is " << score << std::endl;
+				mySnake->speed = 0;
 			}
 		}
 
