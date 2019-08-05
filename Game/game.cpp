@@ -84,11 +84,14 @@ void Game::Init()
 		mySnake = new Snake(shapes.at(pickedShape), pickedShape);
 		shapes[pickedShape]->name = "snake head";
 		//curve->MoveControlPoint(0, 0, false, glm::vec4(-1.5, 1, 0, 0));
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 5; i++) {
 			curve->MoveControlPoint(0, 0, false, glm::vec4(3 + 3 * i - 1.5, 1, 0, 0));
 			curve->MoveControlPoint(0, 1, false, glm::vec4(4 + 3 * i - 1.5, 2, 0, 0));
 			curve->MoveControlPoint(0, 2, false, glm::vec4(5 + 3 * i - 1.5, 0.5, 0, 0));
-			curve->MoveControlPoint(0, 3, false, glm::vec4(6 + 3 * i - 1.5, 1, 0, 0));
+			if (i == 3)
+				curve->MoveControlPoint(0, 3, false, glm::vec4(6 + 3 * i - 1.5, 0, 0, 0));
+			else
+				curve->MoveControlPoint(0, 3, false, glm::vec4(6 + 3 * i - 1.5, 1, 0, 0));
 			shapes[pickedShape]->shaderID = 3;
 			pickedShape = shapes.size();
 			addShape(BezierSurface, -1, TRIANGLES);
@@ -255,6 +258,7 @@ void Game::createshapes(CSVReader* reader, int type, int shapetype)
 			p = shapes.size();
 			//std::cout << o.postions.x << "," << o.postions.y << "," << o.postions.z << "," << o.postions.w << std::endl;
 			addShape(shapetype, -1, TRIANGLES);
+
 			pickedShape = p;
 
 			shapeTransformation(yLocalTranslate, 2 * o.lvl + 1);

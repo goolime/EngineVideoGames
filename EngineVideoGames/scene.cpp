@@ -110,7 +110,7 @@ using namespace glm;
 //		shaders[shaderIndx]->Bind();
 		for (unsigned int i = 0; i < shapes.size(); i++)
 		{
-			if (!(i>=1 && i<=4)) {
+			if (!(i>=1 && i<=6)) {
 				if (shapes[i]->Is2Render())
 				{
 					mat4 Normal1 = mat4(1);
@@ -189,8 +189,12 @@ using namespace glm;
 		shapes[2]->Draw(shaders, textures, false);
 		Update(Pro, mvs[2], mvs[1], mvs[3], shapes[1]->GetShader(), shapes[3]->makeTransScale(mat4(1)));
 		shapes[3]->Draw(shaders, textures, false);
-		//Update(Pro, mvs[3], mvs[2], mvs[3], shapes[1]->GetShader(), shapes[4]->makeTransScale(mat4(1)));
-		//shapes[4]->Draw(shaders, textures, false);
+		Update(Pro, mvs[3], mvs[2], mvs[4], shapes[1]->GetShader(), shapes[4]->makeTransScale(mat4(1)));
+		shapes[4]->Draw(shaders, textures, false);
+		Update(Pro, mvs[4], mvs[3], mvs[5], shapes[1]->GetShader(), shapes[5]->makeTransScale(mat4(1)));
+		shapes[5]->Draw(shaders, textures, false);
+		Update(Pro, mvs[5], mvs[4], mvs[5], shapes[1]->GetShader(), shapes[6]->makeTransScale(mat4(1)));
+		shapes[6]->Draw(shaders, textures, false);
 
 		//Draw2(shaderIndx, cameraIndx, debugMode);
 		pickedShape = p;

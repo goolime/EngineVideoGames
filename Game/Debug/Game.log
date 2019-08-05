@@ -1,61 +1,61 @@
 ﻿  game.cpp
 c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\corecrt_math_defines.h(22): warning C4005: 'M_PI': macro redefinition
   c:\users\lenovo\source\repos\enginevideogames\enginevideogames\eulerangles.h(4): note: see previous definition of 'M_PI'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(161): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(174): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(190): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(219): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(239): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(260): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(284): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(301): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(334): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(339): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(164): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(177): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(193): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(222): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(242): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(264): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(288): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(305): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(338): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(343): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(431): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(433): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(347): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(435): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(438): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(437): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(440): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(439): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(671): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(672): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(673): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(682): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(683): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(694): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(696): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(706): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(708): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(718): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(719): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(728): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(730): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(731): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(442): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(444): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(675): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(676): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(677): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(686): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(687): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(698): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(700): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(710): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(712): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(722): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(723): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(732): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(740): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(741): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(742): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(751): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(752): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(753): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(734): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(735): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(736): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(744): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(745): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(746): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(755): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(756): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\lenovo\source\repos\enginevideogames\game\game.cpp(757): warning C4305: 'argument': truncation from 'double' to 'float'
   Game.vcxproj -> C:\Users\Lenovo\Source\Repos\EngineVideoGames\Debug\Game.exe
